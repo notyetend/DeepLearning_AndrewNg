@@ -1,4 +1,4 @@
-<u>Coursera에 Andrew Ng 교수님 진행하는 [Deep Learning] 강의를 정리한 페이지 입니다.</u>
+##### Coursera에서 Andrew Ng 교수님 진행하는 [Deep Learning] 강의를 정리한 페이지 입니다.
 
 
 ###### Course1. Neural Networks and Deep Learning
