@@ -1,14 +1,16 @@
-# Lecture Summary - Deep Learning of Andrew Ng
-
-<u>Coursera¿¡ Andrew Ng ±³¼ö´Ô ÁøÇàÇÏ´Â [Deep Learning] °­ÀÇ¸¦ Á¤¸®ÇÑ ÆäÀÌÁö ÀÔ´Ï´Ù.</u>
+<u>Courseraì— Andrew Ng êµìˆ˜ë‹˜ ì§„í–‰í•˜ëŠ” [Deep Learning] ê°•ì˜ë¥¼ ì •ë¦¬í•œ í˜ì´ì§€ ì…ë‹ˆë‹¤.</u>
 
 
-###Course1. Neural Networks and Deep Learning
-
+### Course1. Neural Networks and Deep Learning
 Week1      
-
 <a href="https://rawgit.com/notyetend/DeepLearning_AndrewNg/master/notes/Course1Week2_Neural_Networks_Basics.html" target="_blank">Week2. Neural_Networks_Basics</a>
-
 Week3
-
 Week4
+
+### Course2. Improving Deep Neural Networks_Hyperparameter tuning, Regularization and Optimization
+
+### Course3. Structuring Machine Learning Projects
+
+### Course4. Convolutional Neural Networks
+
+### Course5. Sequence Models
