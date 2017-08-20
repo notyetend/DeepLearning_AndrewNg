@@ -7,6 +7,8 @@
 ###### Week3. Shallow_neural_networks      
 ###### Week4. Deep_Neural_Networks      
 
+---
+
 #### Course2. Improving Deep Neural Networks_Hyperparameter tuning, Regularization and Optimization
 
 #### Course3. Structuring Machine Learning Projects
