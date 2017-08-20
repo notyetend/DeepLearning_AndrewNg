@@ -3,9 +3,9 @@
 
 ###### Course1. Neural Networks and Deep Learning
 Week1      
-<a href="https://rawgit.com/notyetend/DeepLearning_AndrewNg/master/notes/Course1Week2_Neural_Networks_Basics.html" target="_blank">Week2. Neural_Networks_Basics</a>
-Week3
-Week4
+<a href="https://rawgit.com/notyetend/DeepLearning_AndrewNg/master/notes/Course1Week2_Neural_Networks_Basics.html" target="_blank">Week2. Neural_Networks_Basics</a>      
+Week3. Shallow_neural_networks      
+Week4. Deep_Neural_Networks      
 
 ###### Course2. Improving Deep Neural Networks_Hyperparameter tuning, Regularization and Optimization
 
