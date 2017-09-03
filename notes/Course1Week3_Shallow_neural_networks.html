@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
 <head><meta charset="utf-8" />
-<title>Course1Week2_Neural_Networks_Basics</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
+<title>Course1Week3_Shallow_neural_networks</title><script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.1.10/require.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
 
 <style type="text/css">
@@ -11804,7 +11804,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="Coursera--|-Andrew-Ng's-Deep-Learning-Class-|-Course1.-Neural-Networks-and-Deep-Learning-|-Week2.-Neural_Networks_Basics">Coursera  | Andrew Ng's Deep Learning Class | Course1. Neural Networks and Deep Learning | Week2. Neural_Networks_Basics<a class="anchor-link" href="#Coursera--|-Andrew-Ng's-Deep-Learning-Class-|-Course1.-Neural-Networks-and-Deep-Learning-|-Week2.-Neural_Networks_Basics">&#182;</a></h6>
+<h6 id="Coursera--|-Andrew-Ng's-Deep-Learning-Class-|-Course1.-Neural-Networks-and-Deep-Learning-|-Week3.-Shallow_neural_networks">Coursera  | Andrew Ng's Deep Learning Class | Course1. Neural Networks and Deep Learning | Week3. Shallow_neural_networks<a class="anchor-link" href="#Coursera--|-Andrew-Ng's-Deep-Learning-Class-|-Course1.-Neural-Networks-and-Deep-Learning-|-Week3.-Shallow_neural_networks">&#182;</a></h6>
 </div>
 </div>
 </div>
@@ -11813,7 +11813,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="[1].-Logistic-Regression-as-a-Neural-Network">[1]. Logistic Regression as a Neural Network<a class="anchor-link" href="#[1].-Logistic-Regression-as-a-Neural-Network">&#182;</a></h1>
+<h1 id="[1].-Shallow-neural-networks">[1]. Shallow neural networks<a class="anchor-link" href="#[1].-Shallow-neural-networks">&#182;</a></h1>
 </div>
 </div>
 </div>
@@ -11822,8 +11822,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>신경망 프로그래밍의 기본에 대해서 다시 살펴볼 것이다. 사실 신경망을 구현할 때 몇가지 기술들이 있으며 이것들은 매우 중요하다. 예를들어 $m$건의 훈련 데이터(training data)가 있을 때, for-loop를 이용해 데이터 한건 한건 처리할수도 있다. 하지만 보다 나은 접근은 for-loop 없이 전체 데이터를 한꺼번에 처리하는 것이고, 이를 어떻게 할 수 있는지 살펴볼 것이다. 다음으로 일반적인 신경망을 학습시킬 때 순전파(forward propagation)와 역전파(back propagation)를 수행하는데 왜 이런 것들이 필요한지도 살펴볼 것이다. 이해를 돕기 위해 로지스틱 회귀(logistic regression) 모형을 이용한 예제를 이용할 것이다.</p>
-
+<h3 id="[1-1].-Neural-Networks-Overviews">[1-1]. Neural Networks Overviews<a class="anchor-link" href="#[1-1].-Neural-Networks-Overviews">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -11832,52 +11831,32 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[1-1].-Binary-Classification">[1-1]. Binary Classification<a class="anchor-link" href="#[1-1].-Binary-Classification">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>로지스틱 회귀는 이항 분류(binary classification) 문제를 풀기 위한 방법론이다. 간단한 이항 분류 문제로 아래 그림과 같이 64 x 64의 이미지가 주어지고 이것이 고양이 그림인지(1) 혹은 그렇지 않은지(0)을 분류해야 한다고 해 보자. (앞으로 출력값을 $y$로 표기하기로 한다.)</p>
-<p>(아래 예시 그림은 공간이 부족하여 5 x 5 행렬로 그림) 이 예제의 이미지는 각각 적색, 녹색, 파란색의 강도(0~255)를 표현하는 3개의 64 x 64 행렬로 컴퓨터에 저장된다. 입력 데이터를 열 벡터로 표현해보면 우선 적색 행렬의 좌측 상단부터 255, 231, 42, 22, 123, ... , 202를 아래로 나열하고, 그 아래로 녹색 행렬의 숫자들 255, 134, 202, ... 그리고 파란색 행렬의 숫자를 모두 나열한다. 이는 $\mathbb{R}^{12288 \times 1}$의 열 벡터가 될 것이다. ($64 \times 64 \times 3 = 12288$). 이때 입력 피처(input feature) 크기를 $n_x$로 표기하기로 하며, 아래 예에서는 그 값이 12288이다. (종종 간단히 $n$이라 표기하기도 할 것이다)</p>
-<p>결국 이 문제에서 하려는 것은 $x$가 주어졌을 때 $y$를 맞추는 것이다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L01_01.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h6 id="&#54364;&#44592;&#48277;">&#54364;&#44592;&#48277;<a class="anchor-link" href="#&#54364;&#44592;&#48277;">&#182;</a></h6>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
+<p>(지난주 내용을 간단히 짚고 넘어간다.) 로지스틱 회귀모형에서는 파라미터 $w$, $b$와 입력 데이터 $x$가 주어졌을 때  $z=W^Tx + b$, $a=\sigma(z)$, $\mathcal{L}(a, y)$를 차례로 계산하게 된다.</p>
+<p>이에 상응하는 신경망 모형은 아래 두번째 그림으로 히든 레이어의 노드가 3개 이므로 아래와 같은 3가지 버전의 $z$를 계산하게 되며($z^{[1]}_1$
+, $z^{[1]}_2$, $z^{[1]}_3$), 이때 각기 다른 파라미터($w^{[1]}_1$, $w^{[1]}_2$, $w^{[1]}_3$)가 사용된다.</p>
+<p>앞으로 사용할 몇가지 표기법을 정리해보면 우선 각 i번째 레이어를 표현하기 위해 윗첨자로 [l]를 붙일 것이며, 데이터 샘플의 번호는 윗첨자 (i)를, 특정 레이어의 노드 번호는 아랫첨자 j를 사용할 것이다. 또한 행렬 $M$이 p x q 차원이라는 것을 $M \in \mathbb{R}^{p \times q}$와 같이, $s$가 스칼라 값이라는 것을 $s \in \mathbb{R}$로 표기할 것이다. 앞으로 사용할 변수들의 차원과 의미는 아래와 같다.</p>
 <ul>
-<li>훈련 데이터 한건은 $(x, y)$의 쌍이며, $x$는 $x \in \mathbb{R}^{n_x}$의 열-벡터(column vector)이고, $y$는 1 혹은 0의 값을 갖는다.($y \in \{0, 1\}$)</li>
-<li>훈련 데이터의 건수는 $m$이라 표기할 것이다. 즉 $\left\{(x^{(1)}, y^{(1)}), ~ (x^{(2)}, y^{(2)}), ~ \cdots ~, (x^{(m)}, y^{(m)})\right\}$로 구성된 데이터이다.</li>
-<li>종종 훈련 데이터의 건수라는 것을 표현하기 위해 $m_{train}$와 같은 표기도 사용할 것이며, 테스트 데이터의 건수는 $m_{test}$로 표기할 것이다.</li>
-<li>입력 데이터를 행렬로 표현할 때는 $X$로 표기할 것이며, 각 변수가 열-벡터로 $m$개 열이 $X$을 구성하게 된다. 물론 각 데이터 건을 전치된 열-벡터(transposed column vector)로 위에서부터 쌓는 구조로 $X$를 표현할수도 있으나 각 변수를 열-벡터로 표현하면 그 구현이 훨신 수월해진다.</li>
-<li>출력 데이터는 $m$건의 출력값을 행-벡터($y \in \mathbb{R}^{1\times m}$)로 표현한다. 물론 열-벡터로 표현하는 것도 가능하지만 행-벡터로 표현하는 것이 파이썬 구현을 훨씬 수월하게 하며, 행-벡터로 표현했을 때 파이썬 벡터의 shape값이 (1, m)이 된다.</li>
+<li>$x^{(i)}_j \in \mathbb{R}^{}$ : i번째 샘플의 j번째 변수</li>
+<li>$x_j \in \mathbb{R}^{1 \times m}$ : j번째 변수들(모든 샘플에 대한)</li>
+</ul>
+<ul>
+<li>$W^{[l]}_j \in \mathbb{R}^{1 \times n^{[l-1]}}$ : $l-1$번째 레이어와 $l$번째 레이어의 $j$번째 노드를 연결하는 weights</li>
+<li>$W^{[l]} \in \mathbb{R}^{n^{[l]} \times n^{[l-1]}}$ : $l-1$번째 레이어와 $l$번째 레이어를 연결하는 weights</li>
+</ul>
+<ul>
+<li>$z^{[l](i)}_j \in \mathbb{R}^{}$ : $i$번째 샘플에 대한 $l$번째 레이어의 $j$번째 노드의 weighted sum</li>
+<li>$z^{[l]}_j \in \mathbb{R}^{1 \times m}$ : $l$번째 레이어의 $j$번째 노드의 weighted sum (모든 샘플에 대한)</li>
+<li>$Z^{[l]} \in \mathbb{R}^{n^{[l]} \times m}$ : $l$번째 레이어의 weighted sum (모든 샘플에 대한)</li>
+</ul>
+<ul>
+<li>$a^{[l](i)}_j \in \mathbb{R}^{}$ : $i$번째 샘플에 대한 $l$번째 레이어의 $j$번째 노드의 activation</li>
+<li>$a^{[l]}_j \in \mathbb{R}^{1 \times m}$ : $l$번째 레이어의 $j$번째 노드의 activation (모든 샘플에 대한)</li>
+<li>$A^{[l]} \in \mathbb{R}^{n^{[l]} \times m}$ : $l$번째 레이어의 activation (모든 샘플에 대한)</li>
+</ul>
+<ul>
+<li>$dw$ : $w$에 대한 미분항으로서 $w$의 차원과 같다. (예를들어 $dW^{[l]}$의 차원은 $W^{[l]}$의 차원과 같다.)</li>
+<li>$dz$ : $z$에 대한 미분항으로서 $z$의 차원과 같다.</li>
+<li>$da$ : $a$에 대한 미분항으로서 $a$의 차원과 같다.</li>
 </ul>
 
 </div>
@@ -11888,7 +11867,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L01_02.PNG" alt="Local image"></p>
+<p><img src="./images/C1W3L01_01.PNG" alt="Local image"></p>
 
 </div>
 </div>
@@ -11898,7 +11877,7 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[1-2].-Logistic-Regression">[1-2]. Logistic Regression<a class="anchor-link" href="#[1-2].-Logistic-Regression">&#182;</a></h3>
+<h3 id="[1-2].-Neural-Network-Representation">[1-2]. Neural Network Representation<a class="anchor-link" href="#[1-2].-Neural-Network-Representation">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -11907,12 +11886,9 @@ div#notebook {
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>지도학습 특히 타겟 값이 0vs1과 같이 이항인 경우 유용한 방법 중 하나가 로지스틱 회귀 모형이다. 이런 모형을 통해 타겟 값이 0일지 혹은 1일지를 예측하는 것이 목표이며, 보다 엄밀히는 어떤 입력 데이터 $x$가 주어졌을 때 타겟값이 1일 확률값, $\hat{y}=P(y=1 ~|~ x)$를 얻게 되는 것이다.(혹은 0일 확률)</p>
-<p>이때 $x$는 $n_x$차원 벡터($x\in \mathbb{R}^{n_x}$)이고<br>
-모형의 모수(parameter)  $b$와 $w$는 각각 실수($b \in \mathbb{R})$와 $n_x$차원 벡터($w\in \mathbb{R}^{n_x}$)이다.</p>
-<p>로지스틱 회귀모형은 $\hat{y}=\sigma(w^Tx + b)$의 형태로 입력과 출력의 관계를 표현한다. 여기서 $\sigma$는 sigmoid 함수를 의미하며 아래와 같이 정의되며 $z$값이 커질수록 1에 가까운 출력값을, 반대로 $z$값이 작아질수록 0에 가까운 출력값을 내놓는다.
-$$\sigma(z) = \frac{1}{1 + \exp^{-z}}, ~ z = w^Tx + b$$</p>
-<p>지금까지 설명에서 bias 항 $b$를 별도로 표현해 왔으나, $b$를 $\theta_0$으로 표현하고 값이 1인 $x_0$를 추가하여 $\hat{y}=\sigma(\theta^Tx)$와 같이 표현하는 방법도 있다. 우리 강의에서는 bias 항을 $b$로 표현하는 방식을 따를 것이다.</p>
+<p>아래 그림에서 첫번째 레이어를 입력 레이어(input layer), 두번째 레이어를 히든 레이어(hidden layer), 세번째 레이어를 출력 레이어(output layer)라 한다. 일반적으로 히든 레이어는 입력 레이어와 출력 레이어 사이의 레이어들을 말한다. 그리고 아래 그림의 신경망을 '2 레이어 신경망'이라 하는데, 레이어 수를 셀때는 입력 레이어를 제외하고 세는 관래가 있다.</p>
+<p>$w^{[1]}$와 $b^{[1]}$은 입력 레이어에서 (첫번째) 히든 레이어를 연결하는 파라미터를 의미하며 $w^{[1]}$는 4x3 행렬이고 $b^{[1]}$는 4x1 행렬이다.</p>
+<p>또한 $w^{[2]}$와 $b^{[2]}$은 히든 레이어에서 출력 레이어를 연결하는 파라미터를 의미하며 $w^{[2]}$는 1x4 행렬이고 $b^{[2]}$는 1x1 행렬이다.</p>
 
 </div>
 </div>
@@ -11922,7 +11898,7 @@ $$\sigma(z) = \frac{1}{1 + \exp^{-z}}, ~ z = w^Tx + b$$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L02_01.PNG" alt="Local image"></p>
+<p><img src="./images/C1W3L02_01.PNG" alt="Local image"></p>
 
 </div>
 </div>
@@ -11932,7 +11908,7 @@ $$\sigma(z) = \frac{1}{1 + \exp^{-z}}, ~ z = w^Tx + b$$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[1-3].-Logistic-Regression-Cost-Function">[1-3]. Logistic Regression Cost Function<a class="anchor-link" href="#[1-3].-Logistic-Regression-Cost-Function">&#182;</a></h3>
+<h3 id="[1-3].-Computing-a-Neural-Network's-Output">[1-3]. Computing a Neural Network's Output<a class="anchor-link" href="#[1-3].-Computing-a-Neural-Network's-Output">&#182;</a></h3>
 </div>
 </div>
 </div>
@@ -11941,19 +11917,7 @@ $$\sigma(z) = \frac{1}{1 + \exp^{-z}}, ~ z = w^Tx + b$$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>$i$번째 데이터 샘플을 $(x^{(i)}, y^{(i)})$라 할 때 로지스틱 회귀모형의 목표는 모형 출력값인 $\hat{y}^{(i)}$가 실제 타겟 값인 $y^{(i)}$와 최대한 가까워지는 것이다. 보다 일반적으로 전체 데이터 $m$건에 대하여 그 차이가 작다면 좋을 것이다. 이를 위해 일반적으로 많이 사용하는 오차 제곱합을 최소화 하는 접근법($\mathrm{argmin}_{w, b}\sum_i^m \frac{1}{2}\left( \hat{y}^{(i)} - y \right)^2$)을 사용할 수도 있을것 같으나, 최소화 하려는 이 함수가 볼록함수(convex function)가 아니라는 문제가 있다. 이 때문에 다른 형태의 오차(loss)함수와 비용(cost) 함수를 정의하여 사용하게 된다.</p>
-<p>우선 오차(loss, error) 함수로 $\mathcal{L}(\hat{y}, y) = \frac{1}{2}\left( \hat{y} - y \right)^2$ 대신, $\mathcal{L}(\hat{y}, y) = -\left( y\log\hat{y} + (1-y) \log(1-\hat{y})\right)$를 사용한다. (※ 샘플 하나에 대한 오차를 loss라 부름) 이 함수의 의미를 생각해보면 $y=1$일 때에는 loss 함수가 $\mathcal{L}(\hat{y}, y) = -\log \hat{y}$가 되며 예측값이 1에서 멀어질 수록 큰 오차를 부과하며, 반대로 $y=0$일 때에는 오차 함수가 $\mathcal{L}(\hat{y}, y) = -\log(1- \hat{y})$가 되며 예측값이 0에서 멀어질 수록 큰 오차를 부과함을 알 수 있다.</p>
-<p>결국 전체 $m$건의 데이터에 대한 비용(cost) 함수는 아래와 같다.</p>
-$$J(w, b) = \frac{1}{m} \sum_{i=1}^m \mathcal{L}(\hat{y}^{(i)}, y^{(i)}) = - \frac{1}{m} \sum_{i=1}^m \left[ y^{(i)} \log \hat{y}^{(i)} + (1-y^{(i)}) \log(1-\hat{y}^{(i)})\right]$$
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L02_02.PNG" alt="Local image"></p>
+<p>사실 신경망에서 노드(혹은 뉴런)을 표현하는 동그라미는 두가지 연산을 수행한다. $l$번째 레이어의 $j$번째 노드는 우선 이전 레이어의 출력값들($a^{[l-1]}$ 혹은 첫번째 히든 레이어일 경우 $x$)을 입력받아 가중합(weighted sum)으로 $z_j$를 계산하는 것이고, 두번째는 $z_j$를 입력으로 activation function 값($\sigma(z_j)$)을 구하는 것이다.</p>
 
 </div>
 </div>
@@ -11963,17 +11927,7 @@ $$J(w, b) = \frac{1}{m} \sum_{i=1}^m \mathcal{L}(\hat{y}^{(i)}, y^{(i)}) = - \fr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[1-4].-Gradient-Descent">[1-4]. Gradient Descent<a class="anchor-link" href="#[1-4].-Gradient-Descent">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>최적화(optimize)할 비용함수 $J(w, b)$를 정의 했었고, 비용함수가 최소값이 되도록 하는 $w$와 $b$를 찾아야 한다. 다행히도 우리가 최적화 하려는 로지스틱 회귀모형의 비용함수는 볼록(convex)함수 이므로 전역 최소값(global minimum)이 단 하나 존재한다.</p>
-<p>전역 최소값을 찾기 위해 우선 $w$와 $b$를 어떤 임의 값으로 초기화 하고, 초기값 $(w, b)$에서 시작하여 가장 경사가 가파른 방향으로 $(w, b)$ 값을 조금식 변화시키는데, 비용함수 값이 임계치 이상 바뀌지 않을 때까지 $(w, b)$ 수정을 반복한다.</p>
+<p><img src="./images/C1W3L02_02.PNG" alt="Local image"></p>
 
 </div>
 </div>
@@ -11983,116 +11937,18 @@ $$J(w, b) = \frac{1}{m} \sum_{i=1}^m \mathcal{L}(\hat{y}^{(i)}, y^{(i)}) = - \fr
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L03_01.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>$(w, b)$를 변화시켜가는 과정을 자세히 살펴보자. 설명을 위해 $b$는 없고 $w$만 있다고 가정해보자. 이때 $w$에 따른 비용함수의 값은 아래 그림과 같이 (아래로) 볼록한 함수가 될 것이다. 아래와 같이 $w$ 수정을 반복하며 반복하게 되며 수정의 정도를 표현하기 위해 learning rate $\alpha$를 사용한다.</p>
+<p>측 첫번째 히든 레이어의 첫 노드는 아래 계산을 하는 것이고
 $$
 \begin{align}
-&\mathrm{Repeat}  ~ \{ \\
-&~~w:=w-\alpha \frac{dJ(w)}{dw} \\
-&\} \\
+& z^{[1]}_1 = w^{[1]T}_1 x + b^{[1]}_1 \\
+& a^{[1]}_1 = \sigma(z^{[1]}_1)
 \end{align}
 $$
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>사실 비용 함수에 $w$가 하나만 있지는 않을 것이기 때문에 , 미분을 표현할 때 상미분(ordinary derivative, $dx$)이 아니라 편미분(partial derivative, $\partial x$)으로 표기하는 것이 옳다. 즉 $\frac{\partial J(w, b)}{\partial w_k}$ 로 표기 해야 한다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L03_02.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[1-5].-Derivatives">[1-5]. Derivatives<a class="anchor-link" href="#[1-5].-Derivatives">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>$f(a) = 3a$라는 함수가 있을 때 $\frac{df(a)}{da}$는 아주 단순하게 특정 $a$값에서 $a$를 아주 조금 변화시켰을 때 $f(a)$는 얼마나 변하는지에 대한 비율이라 할 수 있다. 예를들어 $a=5$일때 $f(a)=15$이고 $a=5.001$일때 $f(a)=15.003$이다. 즉 $a$가 0.001 증가하면 $f(a)$는 0.003 증가한다. 즉 변화율은 $0.003/0.001 = 3$ 이다. $\frac{df(a)}{da}$의 다른 의미로는 어떤 $a$에서 $f(a)$의 기울기라고 생각할수도 있다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L04_01.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[1-6].-More-Derivative-Examples">[1-6]. More Derivative Examples<a class="anchor-link" href="#[1-6].-More-Derivative-Examples">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>앞서의 예($f(a) = 3a$)의 경우 서로 다른 $a$에서 함수의 기울기가 변하지 않지만, $f(a)=a^2$의 경우 $a$값에 따라 기울기가 달라진다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L04_02.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>기본적인 몇가지 미분 예는 아래와 같다.
+첫번째 히든 레이어의 두번째 노드는 아래 계산을 하는 것이다.
 $$
 \begin{align}
-f(a)=a^2, &~~ \frac{d}{da}f(a) = 2a \\
-f(a)=a^3, &~~ \frac{d}{da}f(a) = 3a^2 \\
-f(a)=\ln(a), &~~ \frac{d}{da}f(a) = 1/a\\
+& z^{[1]}_2 = w^{[1]T}_2 x + b^{[1]}_2 \\
+& a^{[1]}_2 = \sigma(z^{[1]}_2)
 \end{align}
 $$</p>
 
@@ -12104,7 +11960,7 @@ $$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L04_03.PNG" alt="Local image"></p>
+<p><img src="./images/C1W3L02_03.PNG" alt="Local image"></p>
 
 </div>
 </div>
@@ -12114,18 +11970,7 @@ $$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[1-7].-Computation-graph">[1-7]. Computation graph<a class="anchor-link" href="#[1-7].-Computation-graph">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>신경망의 연산은 순전파(forward propagation)에 이은 역전파(backward propagation)로 구성된다. Computation Graph를 통해 신경망 연산이 왜 이렇게 구성되어 있는지 살펴볼 것이다.</p>
-<p>설명을 위해 아주 간단한 예시 함수 $J(a, b, c)=3(a + bc)$의 순전파와 역전파 과정을 Computation Graph로 살펴보자.</p>
-<p>우선 순전파 과정은 입력값 $(a, b, c)$를 이용해 $J$를 계산하는 것인제 3단계로 나뉜다. 우선 $b$와 $c$를 이용해 $u=bc$를 계산하고, 두번째로 $a$와 $u$를 이용해 $v=a+u$를 계산하고, 마지막으로 $v$를 이용해 $J=3v$를 계산한다. (아래 그림의 파란색 화살표)</p>
+<p>첫번째 히든 레이어 각 노드의 가중합와 activation은 아래와 같은데 이들 계산을 for-loop로 구할수도 있으나, 벡터화 하는 것이 보다 효율적이다.</p>
 
 </div>
 </div>
@@ -12135,7 +11980,39 @@ $$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L05_01.PNG" alt="Local image"></p>
+$$
+\begin{align}
+& z^{[1]}_1 = w^{[1]T}_1 x + b^{[1]}_1 \\
+& z^{[1]}_2 = w^{[1]T}_2 x + b^{[1]}_2 \\
+& z^{[1]}_3 = w^{[1]T}_3 x + b^{[1]}_3 \\
+& z^{[1]}_4 = w^{[1]T}_4 x + b^{[1]}_4 \\
+&\\
+& a^{[1]}_1 = \sigma(z^{[1]}_1) \\
+& a^{[1]}_2 = \sigma(z^{[1]}_2) \\
+& a^{[1]}_3 = \sigma(z^{[1]}_3) \\
+& a^{[1]}_4 = \sigma(z^{[1]}_4) \\
+&\\
+&\left( z^{[1]}_j \in \mathbb{R}^{}, ~ w^{[1]}_j \in \mathbb{R}^{3 \times 1}, ~ x \in \mathbb{R}^{3 \times 1}, ~ b^{[1]}_j \in \mathbb{R}^{}, ~ a^{[1]}_j \in \mathbb{R}^{1 \times 1} \right)
+\end{align}
+$$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>위 계산을 벡터화 하여 아래와 같이 표현할 수 있다.
+$$
+\begin{align}
+& z^{[1]} = w^{[1]}x + b^{[1]}\\
+& \\
+& a^{[1]} = \sigma(z^{[1]}) \\
+& \\
+& \left( z^{[1]} \in \mathbb{R}^{4 \times 1}, ~ w^{[1]} \in \mathbb{R}^{4 \times 3}, ~ x \in \mathbb{R}^{3 \times 1}, ~ b^{[1]} \in \mathbb{R}^{4 \times 1}, ~ a^{[1]} \in \mathbb{R}^{4 \times 1}\right) \\
+\end{align}
+$$</p>
 
 </div>
 </div>
@@ -12145,23 +12022,7 @@ $$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[1-8].-Derivatives-with-a-Computation-Graph">[1-8]. Derivatives with a Computation Graph<a class="anchor-link" href="#[1-8].-Derivatives-with-a-Computation-Graph">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>다음으로 역전파(backward propagation)는 $J$에 대한 미분을 구하는 과정인데, Computation Graph로 이 과정을 어떻게 나타낼 수 있는지 살펴본다.</p>
-<p>우선 $J=3v$이므로 $\frac{dJ}{dv}$는 $3$이라는 것을 알 수 있다. 두번째로 $\frac{dv}{da}$는 $1$이고, 세번째로 $\frac{dJ}{da}$는 $\frac{dJ}{dv}\frac{dv}{da}$이므로 $3$이고 마찬가지로 $\frac{dJ}{du}=\frac{dJ}{dv}\frac{dv}{du}=3$이다.</p>
-<p>실제 구현에서 대부분의 미분이 $J$를 미분하는 것이므로 앞으로 코드에서는 $\frac{d\mathbf{FinalOutputVar}}{d\mathbf{var}}$에 대한 변수명으로 dvar을 사용할 것이다. 예를들어 $\frac{dJ}{du}$에 대한 변수명으로 'du'를 사용할 것이다.</p>
-<ul>
-<li>dv = 3</li>
-<li>da = 3</li>
-<li>du = 3</li>
-</ul>
+<p><img src="./images/C1W3L02_04.PNG" alt="Local image"></p>
 
 </div>
 </div>
@@ -12171,7 +12032,7 @@ $$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L05_02.PNG" alt="Local image"></p>
+<p>아래와 같이 각 변수의 차원을 적어볼 수 있는데 주의할 점은 데이터 샘플 하나에 대한 것이라는 점이다. (전체 데이터 $m$건에 대한 계산을 벡터화 하는 것은 다음 비디오에서 다루게 된다.)</p>
 
 </div>
 </div>
@@ -12181,13 +12042,7 @@ $$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>다음으로 $\frac{dJ}{db}=\frac{dJ}{dv}\frac{dv}{db}=3c$인데 이 미분은 $b$가 아닌 다른 변수는 주어진 경우 이므로 그 값이 $6$이다. 마찬가지로 $\frac{dJ}{dc}=\frac{dJ}{dv}\frac{dv}{dc}=3b=9$이다.</p>
-<ul>
-<li>db = 3</li>
-<li>dc = 9</li>
-</ul>
-<p>결국 Computation Graph의 역방향을 따라 chain rule을 이어갈 수 있음을 알 수 있다.
-(예를들어 $\frac{dJ}{db}=\frac{du}{db}\frac{dv}{du}\frac{dJ}{dv}$이다.)</p>
+<p><img src="./images/C1W3L02_05.PNG" alt="Local image"></p>
 
 </div>
 </div>
@@ -12197,7 +12052,16 @@ $$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L05_03.PNG" alt="Local image"></p>
+<h3 id="[1-4].-Vectorizing-across-multiple-examples">[1-4]. Vectorizing across multiple examples<a class="anchor-link" href="#[1-4].-Vectorizing-across-multiple-examples">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>앞서 비디오에서는 '한건의 샘플 데이터가 주어졌을때 for-loop를 이용한 각 레이어의 노드값($z$, $a$) 계산하는 것'을 벡터화하 방법에 대해 알아봤었다. (이 내용은 아래 'Step 1 코드'가 'Step 2 코드'로 바뀌는 것이다.)</p>
 
 </div>
 </div>
@@ -12207,602 +12071,17 @@ $$</p>
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[1-9].-Logistic-Regression-Gradient-Descent">[1-9]. Logistic Regression Gradient Descent<a class="anchor-link" href="#[1-9].-Logistic-Regression-Gradient-Descent">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Computation Graph를 이용해 ($w$가 두개인)로지스틱 회귀모형의 비용함수(cost function)에 대한 미분항들을 구해보자.</p>
-<p>한건의 데이터 샘플에 대한 오차 함수(loss, error function), $\mathcal{L}(a, y)$를 구하는 과정은 $(x_1, w_1, x_2, w_2, b)$가 주어졌을 때 $z$, $\hat{y}$, $\mathcal{L}(a, y)$를 차례로 구하는 것으로 나눌 수 있고, 이 과정을 아래 그림과 같은 Computation Graph로 나타낼 수 있다.</p>
-<p>결국 주어진 데이터를 이용해 최적의 모형을 찾는 것은 $\mathcal{L}(a, y)$가 줄어들도록 $w_1$과 $w_2$를 변화시키는 것이며 이를 위해서는 $\frac{\mathcal{L}(a,y)}{dw_1}$과 $\frac{\mathcal{L}(a,y)}{dw_2}$를 구해야 한다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L06_01.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>우선 $\mathcal{L}(a,y) = -\left( y\log\hat{y} + (1-y) \log(1-\hat{y})\right)$를 $a$관하여 미분하여 $\frac{\mathcal{L}(a,y)}{da}=-\frac{y}{a} + \frac{1-y}{1-a}$라는 것을 알 수 있고 이것을 'da'라고 표기하기로 한다.</p>
-<p>다음으로 $\frac{d\mathcal{L}(a,y)}{dz}=\frac{d\mathcal{L}(a,y)}{da}\frac{da}{dz} = \left(-\frac{y}{a} + \frac{1-y}{1-a}\right) \cdot a(1-a) = a-y$이고 이것을 'dz'라 표기하기로 한다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>마지막으로  $\frac{d\mathcal{L}(a,y)}{dw_1}=\frac{d\mathcal{L}(a,y)}{da}\frac{da}{dz}\frac{dz}{dw_1} = \frac{d\mathcal{L}(a,y)}{dz}\frac{dz}{dw_1} = \frac{d\mathcal{L}(a,y)}{dz} \cdot x_1$이고 이것을 'dw1'이라 표기할 것이며 $x_1\cdot$'dz'와 같다. 마찬가지로 dw2는 $x_2 \cdot$'dz'이고, 'db'는 $\frac{dz}{db}=1$이므로 'dz'와 같다.($\frac{d\mathcal{L}(a,y)}{db} = \frac{d\mathcal{L}(a,y)}{dz}\frac{dz}{db}$)</p>
-<p>Computation Graph에서 이 계산 과정을 살펴보면 $\frac{d\mathcal{L}(a,y)}{dw_1}$을 구하는 것은 단지 (마지막 노드로부터) 노드 [$a=\sigma(z)$]까지 계산된 미분항 'dz'에 $\frac{dz}{dw_1}$을 곱하는 것이다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L06_02.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[1-10].-Gradient-Descent-on-m-Examples">[1-10]. Gradient Descent on m Examples<a class="anchor-link" href="#[1-10].-Gradient-Descent-on-m-Examples">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>$J(w,b)=\frac{1}{m}\sum_{i=1}^m \mathcal{L}(a^{(i)}, y^{(i)})$이므로, 전체 $m$건의 데이터에 대한 비용-미분항들은 아래와 같다.<br>
-$$\begin{align}
-\frac{dJ(w,b)}{dw_1}&=\frac{1}{m}\sum_{i=1}^m \frac{d\mathcal{L}(a^{(i)}, y^{(i)})}{dw_1} \\
-\frac{dJ(w,b)}{dw_2}&=\frac{1}{m}\sum_{i=1}^m \frac{d\mathcal{L}(a^{(i)}, y^{(i)})}{dw_2} \\
-\frac{dJ(w,b)}{db}&=\frac{1}{m}\sum_{i=1}^m \frac{d\mathcal{L}(a^{(i)}, y^{(i)})}{db} \\
-\end{align}$$</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L06_03.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>$J(w,b)$, $\frac{dJ(w,b)}{dw_1}$, $\frac{dJ(w,b)}{dw_2}$, $\frac{dJ(w,b)}{db}$를 구하는 구현 로직은 아래와 같다.</p>
-<p>$m$건에 대한 for-loop를 한번 돌고 나서, 계산된 dw1, dw2, db를 이용해 w1, w2, b를 learning rate $\alpha$에 비례하여 업데이트 하게 된다. 이후 for-loop를 돌고 w1, w2, b를 업데이트 하는 과정을 (J의 변화가 임계값 이하 일때까지)반복한다.</p>
-<p>구현 중간에 'dw1', 'dw2'를 각각 구하는 부분($dw_1 += x_1^{(i)}~dz^{(i)}$, $dw_2 += x_2^{(i)}~dz^{(i)}$)이 있는데 이를 벡터연산 $dw += x^{(i)}$으로 바꿀수도 있다. (이런 벡터연산화는 Feature가 매우 많을 경우 더더욱 효과적일 것이다.)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L06_04.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h1 id="[2].-Python-and-Vectorization">[2]. Python and Vectorization<a class="anchor-link" href="#[2].-Python-and-Vectorization">&#182;</a></h1>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[2-1].-Vectorization">[2-1]. Vectorization<a class="anchor-link" href="#[2-1].-Vectorization">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>벡터 혹은 배열에 대한 연산을 각 원소에 대해 수행하는 것이 아니라, 한번에 명령으로 병렬적으로 동시에 계산하도록 하는 것을 의미한다. 아래 코드에서 확인 할 수 있는 것 처럼 'np.dot(a, b)'는 벡터화되어 연산이 수행되며 그 계산 속도가 벡터화 하지 않은 것에 비해 수십배 빠름을 확인 할 수 있다.</p>
+<p><img src="./images/C1W3L03_01.PNG" alt="Local image"></p>
 
 </div>
 </div>
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[50]:</div>
+<div class="prompt input_prompt">In&nbsp;[67]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">rand</span><span class="p">(</span><span class="mi">1000000</span><span class="p">)</span>
-
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-<span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Vectorized version:&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
-
-<span class="n">c</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">100000</span><span class="p">):</span>
-    <span class="n">c</span> <span class="o">+=</span> <span class="n">a</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">*</span> <span class="n">b</span><span class="p">[</span><span class="n">i</span><span class="p">]</span>
-<span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">c</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;For loop version: &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>249961.984627
-Vectorized version: 1.0006427764892578ms
-25115.3121612
-For loop version:  102.07128524780273ms
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L07_01.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[2-2].-More-Vectorization-Examples">[2-2]. More Vectorization Examples<a class="anchor-link" href="#[2-2].-More-Vectorization-Examples">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>신경망 프로그래밍시 성능을 위해서 가능하다면 최대한 for-loop 사용을 피하는 것이 좋다. 아래 두가지 예를 통해 for-loop 구현과 벡터화된 연산의 성능 차이를 확인할 수 있다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>m x n차원 행렬 $A$와 m차원 벡터 $v$의 곱을 아래와 같이 for-loop로 계산할수도 있고 벡터화된 np.dot을 이용해 계산할수도 있다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="n">n</span> <span class="o">=</span> <span class="mi">2000</span>
-<span class="n">m</span> <span class="o">=</span> <span class="mi">3000</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
-<span class="n">v</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">(</span><span class="n">m</span><span class="p">)</span>
-
-<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-        <span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">]</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">v</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
-<span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;For loop version  : &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
-
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">v</span><span class="p">)</span>
-<span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Vectorized version:&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>For loop version :  10045.147180557251ms
-Vectorized version: 726.5176773071289ms
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>m x n차원 행렬 $A$와 n x p차원 행렬 $B$의 곱은 아래와 같다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[11]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="n">n</span> <span class="o">=</span> <span class="mi">31</span>
-<span class="n">m</span> <span class="o">=</span> <span class="mi">71</span>
-<span class="n">p</span> <span class="o">=</span> <span class="mi">111</span>
-
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
-<span class="n">B</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">m</span><span class="p">,</span> <span class="n">p</span><span class="p">))</span>
-
-<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span><span class="n">p</span><span class="p">))</span>
-
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">p</span><span class="p">):</span>
-        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-            <span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">e</span><span class="p">]</span> <span class="o">+=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">*</span> <span class="n">B</span><span class="p">[</span><span class="n">j</span><span class="p">][</span><span class="n">e</span><span class="p">]</span>
-<span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;For loop version  : &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
-
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">A</span><span class="p">,</span> <span class="n">B</span><span class="p">)</span>
-<span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Vectorized version:&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>For loop version  :  324.2485523223877ms
-Vectorized version: 3.991842269897461ms
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>벡터화된 행렬 연산 몇가지(dot, outer, multiply)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[96]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">7</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[97]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt output_prompt">Out[97]:</div>
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>-0.10770241043096837</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[98]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">outer</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt output_prompt">Out[98]:</div>
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[-0.39572933,  0.25483774,  0.3344601 ,  0.75552084, -0.01264862,
-         0.50212055,  0.18370116],
-       [ 0.33583878, -0.21627004, -0.28384217, -0.64117865,  0.01073435,
-        -0.42612852, -0.15589942],
-       [ 0.33544492, -0.2160164 , -0.28350929, -0.6404267 ,  0.01072176,
-        -0.42562877, -0.15571659],
-       [-0.19284141,  0.12418405,  0.16298453,  0.36817009, -0.00616375,
-         0.24468653,  0.08951874],
-       [-0.21803739,  0.1404095 ,  0.18427951,  0.41627389, -0.00696909,
-         0.2766564 ,  0.10121494],
-       [-0.3159111 ,  0.20343721,  0.26699981,  0.60313299, -0.01009741,
-         0.4008433 ,  0.14664881],
-       [-0.05549641,  0.03573802,  0.04690412,  0.10595297, -0.00177382,
-         0.07041654,  0.02576194]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[100]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="n">x</span><span class="p">,</span> <span class="n">y</span><span class="p">)</span>  <span class="c1"># same as x*y</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt output_prompt">Out[100]:</div>
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([-0.39572933, -0.21627004, -0.28350929,  0.36817009, -0.00696909,
-        0.4008433 ,  0.02576194])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L07_03.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>벡터를 인자로 받아 어떤 함수값 벡터를 계산하는 경우도 벡터화 할 경우 그 성능이 매우 향상된다.</p>
-<p>numpy의 벡터화된 함수로는 np.exp, np.abs, np.maximum 등이 있고, 피연산자가 numpy-array일 경우 기본적인 4칙연산도 벡터화되어 계산된다. (아래 행렬 제곱에서의 성능 차이 예시)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="n">n</span> <span class="o">=</span> <span class="mi">1000</span>
-<span class="n">m</span> <span class="o">=</span> <span class="mi">2000</span> 
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">random</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
-
-<span class="n">u</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n</span><span class="p">,</span> <span class="n">m</span><span class="p">))</span>
-
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n</span><span class="p">):</span>
-    <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>
-        <span class="n">u</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">A</span><span class="p">[</span><span class="n">i</span><span class="p">][</span><span class="n">j</span><span class="p">]</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;For loop version  : &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
-
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="n">u</span> <span class="o">=</span> <span class="n">A</span><span class="o">**</span><span class="mi">2</span>
-<span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Vectorized version:&#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span><span class="o">*</span><span class="p">(</span><span class="n">toc</span><span class="o">-</span><span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>For loop version  :  1826.2999057769775ms
-Vectorized version: 8.003950119018555ms
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L07_04.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>로지스틱 회귀모형의 비용함수(cost function, $J$)와 미분항($dw_1$, $dw_2$, $db$)을 구하는 구현은 아래와 같다. 각 데이터 샘플에 대해 for-loop를 돌게되는데, 우선 dw1과 dw2를 구하는 것을 벡터화 할 수 있다. 지금은 w가 단 두개이지만 여럿일 경우 벡터화 하는 것이 효과적이다.</p>
-<p>즉 d$w_1$ += $x_1^{(i)}$d$z^{(i)}$, d$w_2$ += $x_2^{(i)}$d$z^{(i)}$를 d$w$ += $x^{(i)}$d$z^{(i)}$로 바꾸게 된다.</p>
-<p>(아래 슬라이드에서 d$z^{(i)}$ = $a^{(i)} -y^{(i)}$가 d$z^{(i)}$ = $a^{(i)}(1-a^{(i)})$로 표기된 것은 오류로 보임)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L07_05.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>위 슬라이드 내용을 예시 데이터로 구현해보면 아래와 같고, 두번째 코드와 같이 벡터화 할 수 있다. 그런데 $w$가 2개 뿐이라서 벡터화 했을 때 실행시간 은 오히려 증가한다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[156]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Step1 : implementation with for-loop, 100 epoch</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># code for the preparation</span>
 
 <span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
 <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
@@ -12810,10 +12089,8 @@ Vectorized version: 8.003950119018555ms
 
 <span class="c1"># etc</span>
 <span class="n">sigmoid</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
-
-
 <span class="k">def</span> <span class="nf">get_log_losses</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="o">-</span><span class="n">y_true</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">))</span>
+    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="o">-</span><span class="n">y_true</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y_true</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y_pred</span><span class="p">))</span>
 
 
 <span class="c1"># data</span>
@@ -12826,170 +12103,61 @@ Vectorized version: 8.003950119018555ms
 <span class="n">Y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_test</span><span class="p">[[</span><span class="mi">4</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
 <span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_train</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
 <span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_train</span><span class="p">[[</span><span class="mi">4</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
-
-<span class="c1"># model parameters</span>
-<span class="n">n_x</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># number of features</span>
-<span class="n">m</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># number of samples</span>
-<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># learning rate</span>
-<span class="n">num_epoch</span> <span class="o">=</span> <span class="mi">100</span>
-
-<span class="c1"># weights</span>
-<span class="n">b</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">w1</span> <span class="o">=</span> <span class="mi">0</span>
-<span class="n">w2</span> <span class="o">=</span> <span class="mi">0</span>
-
-<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_x</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-
-<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-
-<span class="c1"># Training - looping for epoch and for all traning data</span>
-<span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epoch</span><span class="p">):</span>  <span class="c1"># for each epoch</span>
-
-    <span class="c1"># initializing gradients and cost </span>
-    <span class="n">J</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">dw1</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">dw2</span> <span class="o">=</span> <span class="mi">0</span>
-    <span class="n">db</span> <span class="o">=</span> <span class="mi">0</span>
-
-    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>  <span class="c1"># for each sample</span>
-        <span class="n">x_i_1</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>  <span class="c1"># 1st feature</span>
-        <span class="n">x_i_2</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span>  <span class="c1"># 2nd feature</span>
-
-        <span class="n">y_i</span> <span class="o">=</span> <span class="nb">float</span><span class="p">(</span><span class="n">Y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">])</span>
-
-        <span class="n">z_i</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">w1</span> <span class="o">*</span> <span class="n">x_i_1</span> <span class="o">+</span> <span class="n">w2</span> <span class="o">*</span> <span class="n">x_i_2</span>
-        <span class="n">a_i</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z_i</span><span class="p">)</span>
-        <span class="n">J</span> <span class="o">+=</span> <span class="o">-</span><span class="p">(</span><span class="n">y_i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">a_i</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_i</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a_i</span><span class="p">))</span>
-
-        <span class="n">dz_i</span> <span class="o">=</span> <span class="n">a_i</span> <span class="o">-</span> <span class="n">y_i</span>
-
-        <span class="n">dw1</span> <span class="o">+=</span> <span class="n">x_i_1</span> <span class="o">*</span> <span class="n">dz_i</span>
-        <span class="n">dw2</span> <span class="o">+=</span> <span class="n">x_i_2</span> <span class="o">*</span> <span class="n">dz_i</span>
-        <span class="n">db</span> <span class="o">+=</span> <span class="n">dz_i</span>
-
-    <span class="n">J</span> <span class="o">=</span> <span class="n">J</span> <span class="o">/</span> <span class="n">m</span>
-    <span class="n">dw1</span> <span class="o">=</span> <span class="n">dw1</span> <span class="o">/</span> <span class="n">m</span>
-    <span class="n">dw2</span> <span class="o">=</span> <span class="n">dw2</span> <span class="o">/</span> <span class="n">m</span>
-    <span class="n">db</span> <span class="o">=</span> <span class="n">db</span> <span class="o">/</span> <span class="n">m</span>
-
-    <span class="n">w1</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">dw1</span>
-    <span class="n">w2</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">dw2</span>
-    <span class="n">b</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">db</span>
-
-<span class="c1"># Prediction for test set</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">w1</span> <span class="o">*</span> <span class="n">X_test</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span> <span class="o">+</span> <span class="n">w2</span> <span class="o">*</span> <span class="n">X_test</span><span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span><span class="o">.</span><span class="n">T</span>
-
-<span class="c1"># Test set loss</span>
-<span class="n">losses</span> <span class="o">=</span> <span class="n">get_log_losses</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
-
-<span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average loss for the test set:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">losses</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b:</span><span class="si">{}</span><span class="s1">, w:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="p">[</span><span class="n">w1</span><span class="p">,</span> <span class="n">w2</span><span class="p">]))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Execution time for the loop version  : &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="p">(</span><span class="n">toc</span> <span class="o">-</span> <span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
 </div>
 </div>
 
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Average loss for the test set:0.5882050769314021
-b:0.004373669091718309, w:[-0.22364716321434031, 0.1304488882856519]
-Execution time for the loop version  :  76.0345458984375ms
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
 </div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[157]:</div>
+<div class="prompt input_prompt">In&nbsp;[68]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Step2 : vectorized dw and xi</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="c1"># etc</span>
-<span class="n">sigmoid</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
-
-
-<span class="k">def</span> <span class="nf">get_log_losses</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="o">-</span><span class="n">y_true</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_true</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_pred</span><span class="p">))</span>
-
-
-<span class="c1"># data</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Iris-setosa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">df_train</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">df_test</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_test</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
-<span class="n">Y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_test</span><span class="p">[[</span><span class="mi">4</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_train</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_train</span><span class="p">[[</span><span class="mi">4</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
-
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Step 1</span>
 <span class="c1"># model parameters</span>
 <span class="n">n_x</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># number of features</span>
+<span class="n">n_h</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># number of units in the hidden layer</span>
+<span class="n">n_y</span> <span class="o">=</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># size of output layer (= 1)</span>
 <span class="n">m</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># number of samples</span>
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># learning rate</span>
-<span class="n">num_epoch</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">num_epoch</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="c1"># weights</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_x</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># column vector</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">W1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_h</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">W2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_h</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
 <span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
 <span class="c1"># Training - looping for epoch and for all traning data</span>
 <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epoch</span><span class="p">):</span>  <span class="c1"># for each epoch</span>
 
-    <span class="c1"># initializing gradients and cost </span>
+    <span class="c1"># initializing gradients and cost</span>
     <span class="n">J</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">dw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_x</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="n">db</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
     <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>  <span class="c1"># for each sample</span>
         <span class="n">x_i</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># column vector</span>
         <span class="n">y_i</span> <span class="o">=</span> <span class="n">Y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-        <span class="n">z_i</span> <span class="o">=</span> <span class="n">b</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">x_i</span><span class="p">)</span>
-        <span class="n">a_i</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z_i</span><span class="p">)</span>
-        <span class="n">J</span> <span class="o">+=</span> <span class="o">-</span><span class="p">(</span><span class="n">y_i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">a_i</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_i</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a_i</span><span class="p">))</span>
+        <span class="n">z1_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># weighted sum for 1st hidden layer (n_h x 1 column vector)</span>
+        <span class="n">a1_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># activation of 1st hidden layer (n_h x 1 column vector)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_h</span><span class="p">):</span>  <span class="c1"># for each node in the hidden layer</span>
+            <span class="n">w1_ij</span> <span class="o">=</span> <span class="n">W1</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># weights[1] for j&#39;th node (column vector)</span>
+            <span class="n">z1_i</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w1_ij</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">x_i</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">a1_i</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">z1_i</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
 
-        <span class="n">dz_i</span> <span class="o">=</span> <span class="n">a_i</span> <span class="o">-</span> <span class="n">y_i</span>
-
-        <span class="n">dw</span> <span class="o">+=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">x_i</span><span class="p">,</span> <span class="n">dz_i</span><span class="p">)</span>
-        <span class="n">db</span> <span class="o">+=</span> <span class="n">dz_i</span>
-
-    <span class="n">J</span> <span class="o">=</span> <span class="n">J</span> <span class="o">/</span> <span class="n">m</span>
-    <span class="n">dw</span> <span class="o">=</span> <span class="n">dw</span> <span class="o">/</span> <span class="n">m</span>
-    <span class="n">db</span> <span class="o">=</span> <span class="n">db</span> <span class="o">/</span> <span class="n">m</span>
-    
-    <span class="n">w</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">dw</span>
-    <span class="n">b</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">db</span>
-
-<span class="c1"># Prediction</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X_test</span><span class="p">))</span>
-
-<span class="c1"># Accuracy</span>
-<span class="n">losses</span> <span class="o">=</span> <span class="n">get_log_losses</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">z2_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># weighted sum for 2nd hidden layer (n_y x 1 column vector)</span>
+        <span class="n">a2_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">empty</span><span class="p">((</span><span class="n">n_y</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># activation of 2nd hidden layer (n_y x 1 column vector)</span>
+        <span class="k">for</span> <span class="n">j</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_y</span><span class="p">):</span>  <span class="c1"># for each node in the output layer</span>
+            <span class="n">w2_ij</span> <span class="o">=</span> <span class="n">W2</span><span class="p">[</span><span class="n">j</span><span class="p">,</span> <span class="p">:]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># weights[2] for j&#39;th node (column vector)</span>
+            <span class="n">z2_i</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w2_ij</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">a1_i</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span><span class="p">[</span><span class="n">j</span><span class="p">]</span>
+            <span class="n">a2_i</span><span class="p">[</span><span class="n">j</span><span class="p">]</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z2_i</span><span class="p">[</span><span class="n">j</span><span class="p">])</span>
 
 <span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average loss for the test set:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">losses</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b:</span><span class="si">{}</span><span class="s1">, w:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">ravel</span><span class="p">())))</span>
 <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Execution time for the vectorized version  : &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="p">(</span><span class="n">toc</span> <span class="o">-</span> <span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
 </pre></div>
 
@@ -13005,9 +12173,7 @@ Execution time for the loop version  :  76.0345458984375ms
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Average loss for the test set:0.5882050769314021
-b:[ 0.00437367], w:[-0.22364716321434031, 0.13044888828565188]
-Execution time for the vectorized version  :  263.1685733795166ms
+<pre>Execution time for the vectorized version  :  9.018182754516602ms
 </pre>
 </div>
 </div>
@@ -13016,135 +12182,53 @@ Execution time for the vectorized version  :  263.1685733795166ms
 </div>
 
 </div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[2-3].-Vectorizing-Logistic-Regression">[2-3]. Vectorizing Logistic Regression<a class="anchor-link" href="#[2-3].-Vectorizing-Logistic-Regression">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>앞서 구현에서 d$w$ 계산을 벡터화 하기는 했으나 $m$개 샘플에 대한 for-loop가 수행된다. 이 또한 벡터화 할수 있다.</p>
-<p>for-loop를 돌게 되면 $m$개의 $z^{(i)}$, $a^{(i)}$를 구하게 되는데 이를 벡터화 하여 $Z = \left[ z^{(1)}, z^{(2)}, \cdots, z^{(m)} \right] = w^TX + b = \left[ w^Tx^{(1)}+b, w^Tx^{(2)}+b, \cdots, w^Tx^{(m)}+b \right]$와 같이 구현할 수 있다. 또한 각 샘플에 대한 예측값 벡터는 $A = \left[ a^{(1)}, a^{(2)}, \cdots, a^{(m)} \right]=\sigma(Z)$=np.exp($Z$)와 같이 구현할 수 있다.</p>
-<p>여기에서 $w^TX + b$를 보면 $w \in \mathbb{R}^{n_x \times 1}$, $X \in \mathbb{R}^{n_x \times m}$이라서 '1xm차원 벡터($w^TX \in \mathbb{R}^{1 \times m}$)와 실수($b \in \mathbb{R}$)의 합'이라는 뭔가 부자연스러운 연산이 포함되어 있다. 하지만 + 연산의 첫번째 피연산자가 numpy-array라서 두번째 피연산자인 $b$는 1xm차원 벡터 $[b, b, \cdots, b]$로 확장된다. 이런 것을 Broadcasting이라 한다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L08_01.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[2-4].-Vectorizing-Logistic-Regression's-Gradient-Output">[2-4]. Vectorizing Logistic Regression's Gradient Output<a class="anchor-link" href="#[2-4].-Vectorizing-Logistic-Regression's-Gradient-Output">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>앞서 각 샘플 데이터에 대한 예측값 계산을 벡터화하여 벡터 $A$를 구할 수 있었다. dz, db, dw에 대한 연산도 아래와 같이 벡터화 할 수 있다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L08_02.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
 <div class="cell border-box-sizing code_cell rendered">
 <div class="input">
-<div class="prompt input_prompt">In&nbsp;[154]:</div>
+<div class="prompt input_prompt">In&nbsp;[69]:</div>
 <div class="inner_cell">
     <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Step3 : fully vectorized</span>
-
-<span class="kn">import</span> <span class="nn">pandas</span> <span class="k">as</span> <span class="nn">pd</span>
-<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="kn">import</span> <span class="nn">time</span>
-
-<span class="c1"># etc</span>
-<span class="n">sigmoid</span> <span class="o">=</span> <span class="k">lambda</span> <span class="n">x</span><span class="p">:</span> <span class="mi">1</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">exp</span><span class="p">(</span><span class="o">-</span><span class="n">x</span><span class="p">))</span>
-<span class="k">def</span> <span class="nf">get_log_losses</span><span class="p">(</span><span class="n">y_true</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">):</span>
-    <span class="k">return</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="o">-</span><span class="n">y_true</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">y_pred</span><span class="p">))</span> <span class="o">-</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y_true</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">y_pred</span><span class="p">))</span>
-
-<span class="c1"># data</span>
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="s1">&#39;https://archive.ics.uci.edu/ml/machine-learning-databases/iris/iris.data&#39;</span><span class="p">,</span> <span class="n">header</span><span class="o">=</span><span class="kc">None</span><span class="p">)</span>
-<span class="n">df</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="mi">4</span><span class="p">]</span> <span class="o">==</span> <span class="s1">&#39;Iris-setosa&#39;</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">)</span>
-<span class="n">df_train</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.7</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="n">df_test</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">sample</span><span class="p">(</span><span class="n">frac</span><span class="o">=</span><span class="mf">0.3</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-
-<span class="n">X_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_test</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
-<span class="n">Y_test</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_test</span><span class="p">[[</span><span class="mi">4</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
-<span class="n">X_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_train</span><span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
-<span class="n">Y_train</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">df_train</span><span class="p">[[</span><span class="mi">4</span><span class="p">]])</span><span class="o">.</span><span class="n">T</span>
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Step 2</span>
+<span class="c1"># vectorized computation for each node</span>
+<span class="c1"># but still using for-loop for each sample</span>
 
 <span class="c1"># model parameters</span>
 <span class="n">n_x</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># number of features</span>
+<span class="n">n_h</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># number of units in the hidden layer</span>
+<span class="n">n_y</span> <span class="o">=</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># size of output layer (= 1)</span>
 <span class="n">m</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># number of samples</span>
 <span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># learning rate</span>
-<span class="n">num_epoch</span> <span class="o">=</span> <span class="mi">100</span>
+<span class="n">num_epoch</span> <span class="o">=</span> <span class="mi">1</span>
 
 <span class="c1"># weights</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-<span class="n">w</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_x</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>  <span class="c1"># column vector</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">W1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_h</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">W2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_h</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
 
 <span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
 
 <span class="c1"># Training - looping for epoch and for all traning data</span>
 <span class="k">for</span> <span class="n">_</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epoch</span><span class="p">):</span>  <span class="c1"># for each epoch</span>
-    
-    <span class="c1"># initializing gradients and cost </span>
-    <span class="n">J</span> <span class="o">=</span> <span class="mi">0</span><span class="p">;</span>
-    <span class="n">dw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_x</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    <span class="n">db</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
-    
-    <span class="n">Z</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X_train</span><span class="p">)</span> <span class="o">+</span> <span class="n">b</span>
-    <span class="n">A</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">Z</span><span class="p">)</span>
-    <span class="n">J</span> <span class="o">=</span> <span class="o">-</span><span class="p">(</span><span class="n">Y_train</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">A</span><span class="p">)</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">Y_train</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span><span class="o">-</span><span class="n">A</span><span class="p">))</span>
-    <span class="n">dz</span> <span class="o">=</span> <span class="n">A</span> <span class="o">-</span> <span class="n">Y_train</span>
-    <span class="n">db</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dz</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span>
-    <span class="n">dw</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">dz</span><span class="o">.</span><span class="n">T</span><span class="p">)</span> <span class="o">/</span> <span class="n">m</span>  <span class="c1"># equivalent implementations in 2 lines below</span>
-    <span class="c1"># dw = np.sum(np.multiply(X_train, dz), axis=1) / m</span>
-    <span class="c1"># dw = np.average(np.multiply(X_train, dz), axis=1)</span>
 
-    <span class="n">w</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">dw</span>
-    <span class="n">b</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">db</span>
+    <span class="c1"># initializing gradients and cost</span>
+    <span class="n">J</span> <span class="o">=</span> <span class="mi">0</span>
 
-<span class="c1"># Prediction</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">b</span> <span class="o">+</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">X_test</span><span class="p">))</span>
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>  <span class="c1"># for each sample</span>
+        <span class="n">x_i</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># column vector</span>
+        <span class="n">y_i</span> <span class="o">=</span> <span class="n">Y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
 
-<span class="c1"># Accuracy</span>
-<span class="n">losses</span> <span class="o">=</span> <span class="n">get_log_losses</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+        <span class="n">z1_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W1</span><span class="p">,</span> <span class="n">x_i</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span>   <span class="c1"># weighted sum for 1st hidden layer (n_h x 1 column vector)</span>
+        <span class="n">a1_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">z1_i</span><span class="p">)</span>  <span class="c1"># activation of 1st hidden layer (n_h x 1 column vector)</span>
+
+        <span class="n">z2_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W2</span><span class="p">,</span> <span class="n">z1_i</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span>
+        <span class="n">a2_i</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z2_i</span><span class="p">)</span>
+
+        <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="mi">1</span> <span class="o">*</span> <span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">a2_i</span><span class="p">)</span> <span class="o">*</span> <span class="n">y_i</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_i</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a2_i</span><span class="p">))</span>
+
 
 <span class="n">toc</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average loss for the test set:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">losses</span><span class="p">)))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b:</span><span class="si">{}</span><span class="s1">, w:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">b</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="nb">list</span><span class="p">(</span><span class="n">w</span><span class="o">.</span><span class="n">ravel</span><span class="p">())))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Execution time for fully vectorized version  : &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="p">(</span><span class="n">toc</span> <span class="o">-</span> <span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Execution time for the vectorized version  : &#39;</span><span class="p">,</span> <span class="nb">str</span><span class="p">(</span><span class="mi">1000</span> <span class="o">*</span> <span class="p">(</span><span class="n">toc</span> <span class="o">-</span> <span class="n">tic</span><span class="p">))</span> <span class="o">+</span> <span class="s1">&#39;ms&#39;</span><span class="p">)</span>
 </pre></div>
 
 </div>
@@ -13159,9 +12243,7 @@ Execution time for the vectorized version  :  263.1685733795166ms
 <div class="prompt"></div>
 
 <div class="output_subarea output_stream output_stdout output_text">
-<pre>Average loss for the test set:0.5882050769314019
-b:[ 0.00437367], w:[-0.22364716321434033, 0.1304488882856519]
-Execution time for fully vectorized version  :  4.998445510864258ms
+<pre>Execution time for the vectorized version  :  5.002737045288086ms
 </pre>
 </div>
 </div>
@@ -13175,7 +12257,7 @@ Execution time for fully vectorized version  :  4.998445510864258ms
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>아래 슬라이드의 좌측은 원래 for-loop를 이용한 구현이다. 이를 오른쪽과 같이 벡터화 할 수 있었다. 그런데 실제로 파라미터($b$, $\mathbf{w}$)를 구하기 위해서는 비용함수 값이 전역 최소값(global minimum)에 이를 때 까지 ($b$, $\mathbf{w}$) 조정을 계속 해야 한다. 한번 조정하는 과정을 epoch라 하며 이를 여러번 반복하게 된다.(앞서 구현들에서 'for _ in range(num_epoch):  # for each epoch')</p>
+<p>위 'Step 2' 구현을 더 발전시켜 $m$개 샘플에 대한 for-loop를 벡터화 할 수 있다.</p>
 
 </div>
 </div>
@@ -13185,622 +12267,23 @@ Execution time for fully vectorized version  :  4.998445510864258ms
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L08_03.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>아래와 같이 scikit-learn의 LogisticRegression를 이용해서 모형변수를 구해볼 수도 있다.<br>
-(앞서 구현과 비교해 scikit-learn를 이용한 구현 평균 log-loss가 현저하게 낮은데, 구현도 epoch를 늘려주면 다소 괜찮은 loss를 얻게 된다.)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<blockquote><ul>
-<li>reshape(1, -1) 은 행렬을 행-벡터로 변환</li>
-<li>reshape(-1, 1) 은 행렬을 열-벡터로 변환</li>
-<li>ravel()은 행렬을 rank1 배열로 변환</li>
-</ul>
-</blockquote>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[155]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">linear_model</span>
-<span class="kn">from</span> <span class="nn">sklearn</span> <span class="k">import</span> <span class="n">metrics</span>
-
-<span class="n">logreg</span> <span class="o">=</span> <span class="n">linear_model</span><span class="o">.</span><span class="n">LogisticRegression</span><span class="p">(</span><span class="n">penalty</span><span class="o">=</span><span class="s1">&#39;l2&#39;</span><span class="p">,</span> <span class="n">C</span><span class="o">=</span><span class="mi">100</span><span class="p">)</span>
-<span class="n">logreg</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>
-<span class="n">y_pred</span> <span class="o">=</span> <span class="n">logreg</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="o">.</span><span class="n">T</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>  <span class="c1"># same as below line of code</span>
-<span class="c1"># y_pred = sigmoid(logreg.intercept_.reshape(-1, 1) + np.dot(logreg.coef_.reshape(-1, 1).T, X_test))</span>
-
-<span class="n">avg_loss</span> <span class="o">=</span> <span class="n">metrics</span><span class="o">.</span><span class="n">log_loss</span><span class="p">(</span><span class="n">Y_test</span><span class="o">.</span><span class="n">ravel</span><span class="p">(),</span> <span class="n">y_pred</span><span class="o">.</span><span class="n">ravel</span><span class="p">())</span>  <span class="c1"># same as below line of code</span>
-<span class="c1"># avg_loss = np.average(np.multiply(-Y_test, np.log(y_pred)) - np.multiply(1-Y_test, np.log(1-y_pred)))</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average loss for the test set:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">avg_loss</span><span class="p">))</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;b:</span><span class="si">{}</span><span class="s1">, w:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">logreg</span><span class="o">.</span><span class="n">intercept_</span><span class="p">[</span><span class="mi">0</span><span class="p">],</span> <span class="nb">list</span><span class="p">(</span><span class="n">logreg</span><span class="o">.</span><span class="n">coef_</span><span class="o">.</span><span class="n">ravel</span><span class="p">())))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>Average loss for the test set:0.014064427507692585
-b:12.561430588667235, w:[-7.4048827705417875, 8.762486265507464]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[2-5].-Broadcasting-in-Python">[2-5]. Broadcasting in Python<a class="anchor-link" href="#[2-5].-Broadcasting-in-Python">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>파이썬에서 broadcasting이 어떻게 동작하는지 알아보자. 아래 예시 데이터는 몇가지 식재료 100g에 들어있는 탄수화물(Carb), 단백질(Protein), 지방(Fat)이 몇 g 들어있는지를 나타낸다. 예를들어 사과 100g에는 탄수화물이 56g, 단백질이 1.2g, 지방이 1.8g 들어 있다.</p>
-<p>이때 각 식재료 100g에 탄수화물, 단백질, 지방이 각각 몇 %식 들어있는지 계산하려면?</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[1]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-<span class="n">A</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mf">56.0</span><span class="p">,</span> <span class="mf">0.0</span><span class="p">,</span> <span class="mf">4.4</span><span class="p">,</span> <span class="mf">68.0</span><span class="p">],</span> 
-             <span class="p">[</span><span class="mf">1.2</span><span class="p">,</span> <span class="mf">104.0</span><span class="p">,</span> <span class="mf">52.0</span><span class="p">,</span> <span class="mf">8.0</span><span class="p">],</span> 
-             <span class="p">[</span><span class="mf">1.8</span><span class="p">,</span> <span class="mf">135.0</span><span class="p">,</span> <span class="mf">99.0</span><span class="p">,</span> <span class="mf">0.9</span><span class="p">]])</span>
-
-<span class="nb">print</span><span class="p">(</span><span class="n">A</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[[  56.     0.     4.4   68. ]
- [   1.2  104.    52.     8. ]
- [   1.8  135.    99.     0.9]]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>아래 코드에서 axis=0은 위에서 아래로, axis=1은 좌에서 우로 연산하는 것을 의미한다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[2]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">cal</span> <span class="o">=</span> <span class="n">A</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">cal</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[  59.   239.   155.4   76.9]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[3]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">percentage</span> <span class="o">=</span> <span class="mi">100</span> <span class="o">*</span> <span class="n">A</span> <span class="o">/</span> <span class="n">cal</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span><span class="mi">4</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[4]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">percentage</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt output_prompt">Out[4]:</div>
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[ 94.91525424,   0.        ,   2.83140283,  88.42652796],
-       [  2.03389831,  43.51464435,  33.46203346,  10.40312094],
-       [  3.05084746,  56.48535565,  63.70656371,   1.17035111]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L09_01.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>'100 * A'에서 100은 자동으로 행렬 A와 같은 차원으로 확장(broadcast)된다. 마찬가지로 2x3 행렬과 1x3행렬을 더하는 경우 1x3 행렬이 2x3 행렬로 확장된다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L09_02.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>보다 일반적으로 broadcasting이 어떻게 동작하는지 살펴보면, m x n 행렬에 대한 사칙연산으로 두번째 피 연산자가 1 x n 행렬이면 m x n 행렬로 확장되고, m x 1 행렬이면 m x n 행렬로 확장된다. (Matlab이나 Octave로 신경망을 프로그래밍 할 경우 bsxfun이란 것을 사용하는데 여기서도 비슷하게 broadcasting이 동작한다.)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p><img src="./images/C1W2L09_03.PNG" alt="Local image"></p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[2-6].-A-note-on-python/numpy-vectors">[2-6]. A note on python/numpy vectors<a class="anchor-link" href="#[2-6].-A-note-on-python/numpy-vectors">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>파이썬/넘파이에서 broadcasting과 같이 암묵적으로 동작하는 기능들이 아래와 같이 편리할 때도 있지만</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[14]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">k</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span>
-<span class="n">k</span> <span class="o">+</span> <span class="mi">100</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt output_prompt">Out[14]:</div>
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([101, 102, 103])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>아래 예와 같이 의도하지 않은 결과를 줄때도 있다. ((1,3)이나 (3,1)벡터 결과를 의도한 경우)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[17]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">x</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">3</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-<span class="n">y</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">6</span><span class="p">])</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span><span class="mi">3</span><span class="p">))</span>
-<span class="n">z</span> <span class="o">=</span> <span class="n">x</span> <span class="o">+</span> <span class="n">y</span>
-<span class="n">z</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt output_prompt">Out[17]:</div>
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[5, 6, 7],
-       [6, 7, 8],
-       [7, 8, 9]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>이렇게 암묵적 동작 때문에 정말 찾기 어려운 버그가 발생하기도 하는데, 이런 문제들을 피하기 위한 팁 몇가지를 알아보기로 한다. 우선 정규분포에서 임의의 숫자 5개를 생성한다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[19]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
-
-<span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[-0.34874007  2.68509097  0.15072409 -0.57173937  1.90800882]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>이 때 변수 a의 shape은 (5,)로서 이건 열벡터도, 행벡터도 아닌 랭크1-배열(rank1 array)이라는 것이다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[46]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>  <span class="c1"># This is rank-1 array, neither row vector or column vector</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>(5,)
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>문제는 a를 열벡터 혹은 행벡터로 생각하고 전치(transpose)를 하더라도 그 shape이 바뀌지 않는다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[47]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>[-0.34874007  2.68509097  0.15072409 -0.57173937  1.90800882]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>또한 a와 a를 전치한 것을 dot-product할 경우, a가 벡터라면 어떤 행렬이 나오겠지만 a가 '랭크1-배열'이므로 실수(real number)가 결과 값이 된다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[37]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Rank1-array Times Rank1-array transposed </span>
-<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">a</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
-
-<span class="c1"># Vector Times Vector transposed</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([[</span><span class="mi">1</span><span class="p">],</span> <span class="p">[</span><span class="mi">2</span><span class="p">],</span> <span class="p">[</span><span class="mi">3</span><span class="p">]])</span>
-<span class="nb">print</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">b</span><span class="p">,</span> <span class="n">b</span><span class="o">.</span><span class="n">T</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>11.3214344809
-[[1 2 3]
- [2 4 6]
- [3 6 9]]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>이런 문제를 피하기 위해서 신경망을 코딩할 때에는 shape이 (?, )혹은 (, ?)와 같은 <strong>'랭크1-배열' 사용을 피하라</strong>는 것이다. 대신 어떤 행렬을 생성할 때에는 명시적으로 shape을 지정하는 것이 실수를 줄이는 길이다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[43]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">c</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;c:&#39;</span><span class="p">,</span> <span class="n">c</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;c&#39;s shape:&quot;</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="s1">&#39;</span><span class="se">\n</span><span class="s1">&#39;</span><span class="p">)</span>
-<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;c transposed:&#39;</span><span class="p">,</span> <span class="n">c</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_stream output_stdout output_text">
-<pre>c: [[ 1.83831117]
- [-2.27910181]
- [ 0.49413789]
- [-0.75069614]
- [ 0.83271093]] 
-
-c&#39;s shape: (5, 1) 
-
-c transposed: [[ 1.83831117 -2.27910181  0.49413789 -0.75069614  0.83271093]]
-</pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>위의 열벡터 c에서 확인 할수 있는 것과 같이 꺽음괄호([, ])가 2중으로 데이터를 감싸고 있음을 확인 할 수 있다.(랭크1-행렬의 경우 꺽음괄호가 한번 감싸고 있다.)</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>요약하면...</p>
 <ul>
-<li><p>아래와 같은 변수 생성을 지양</p>
-<div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</li>
-<li><p>열벡터를 생성할 때에는 아래와 같은 방식을 사용</p>
-<div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
-</pre></div>
-</li>
-<li><p>행벡터를 생성할 때에는 아래와 같은 방식을 사용</p>
-<div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">)</span>
-</pre></div>
-</li>
-<li><p>혹은 변수 생성후 shape 변경(reshape은 CPU 비용이 저렴함)</p>
-<div class="highlight"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-</pre></div>
-</li>
-<li><p>assertion을 삽입하여 에러를 감지</p>
-<div class="highlight"><pre><span></span><span class="k">assert</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-</pre></div>
-</li>
+<li>Algorithm for Step 1
+$$
+\begin{align}
+&m = \text{number of samples} \\
+&n_h = \text{number of nodes in the hidden layer} \\
+&n_y = \text{number of nodes in the output layer} \\
+&\textbf{for} ~ i=1 ~ \text{to} ~ m ~ \textbf{do} \\
+&\qquad \textbf{for} ~ j=1 ~ \text{to} ~ n_h ~ \textbf{do} \\
+&\qquad \qquad z^{[1](i)}_j = W^{[1]T}_j \cdot x^{(i)} + b^{[1]}_j \\
+&\qquad \qquad a^{[1](i)}_j = \sigma(z^{[1](i)}_j)
+&\\
+&\qquad \textbf{for} ~ j=1 ~ \text{to} ~ n_y ~ \textbf{do} \\
+&\qquad \qquad z^{[2](i)}_j = W^{[2]T}_j \cdot z^{[1](i)} + b^{[2]}_j \\
+&\qquad \qquad a^{[2](i)}_j = \sigma(z^{[2](i)}_j)
+\end{align}
+$$</li>
 </ul>
 
 </div>
@@ -13811,188 +12294,21 @@ c transposed: [[ 1.83831117 -2.27910181  0.49413789 -0.75069614  0.83271093]]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>assertion을 넣으면 아래와 같이 조건(shape == (5,1))에 맞지 않는 경우 알려준다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[53]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">5</span><span class="p">)</span>
-<span class="k">assert</span><span class="p">(</span><span class="n">a</span><span class="o">.</span><span class="n">shape</span> <span class="o">==</span> <span class="p">(</span><span class="mi">5</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">AssertionError</span>                            Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-53-aa1470e39aec&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-fg">      1</span> a <span class="ansi-yellow-intense-fg ansi-bold">=</span> np<span class="ansi-yellow-intense-fg ansi-bold">.</span>random<span class="ansi-yellow-intense-fg ansi-bold">.</span>randn<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">5</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 2</span><span class="ansi-yellow-intense-fg ansi-bold"> </span><span class="ansi-green-intense-fg ansi-bold">assert</span><span class="ansi-yellow-intense-fg ansi-bold">(</span>a<span class="ansi-yellow-intense-fg ansi-bold">.</span>shape <span class="ansi-yellow-intense-fg ansi-bold">==</span> <span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">5</span><span class="ansi-yellow-intense-fg ansi-bold">,</span><span class="ansi-cyan-intense-fg ansi-bold">1</span><span class="ansi-yellow-intense-fg ansi-bold">)</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-
-<span class="ansi-red-intense-fg ansi-bold">AssertionError</span>: </pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>numpy행렬간 연산에서 기본적인 사칙연산(+, -, *, /)은 같은 위치의 원소간(element-wise) 연산이 이뤄지며, (shape의 값이 하나만 다른 경우) broadcast가 일어난다.</p>
-<p>아래 예와 같이 '*'와 np.dot의 결과는 전혀 다르다.</p>
-
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[76]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">)</span>
-<span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt output_prompt">Out[76]:</div>
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[[-0.60645678,  0.14319223,  0.14611721, -0.20050345],
-        [-0.11662699,  0.35041491, -0.01819147, -0.89612952],
-        [ 0.07840696,  0.73099772,  0.19418043, -1.11964412]],
-
-       [[-0.2158664 ,  0.79288889,  0.58701581,  0.07476491],
-        [-0.32170461,  0.1912308 ,  0.02257422,  3.51463411],
-        [-0.16082483, -0.6946641 , -0.03444864, -0.57286972]]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[77]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">a</span> <span class="o">*</span> <span class="n">b</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt"></div>
-
-<div class="output_subarea output_text output_error">
-<pre>
-<span class="ansi-red-intense-fg ansi-bold">---------------------------------------------------------------------------</span>
-<span class="ansi-red-intense-fg ansi-bold">ValueError</span>                                Traceback (most recent call last)
-<span class="ansi-green-intense-fg ansi-bold">&lt;ipython-input-77-444a3808469f&gt;</span> in <span class="ansi-cyan-fg">&lt;module&gt;</span><span class="ansi-blue-intense-fg ansi-bold">()</span>
-<span class="ansi-green-fg">      1</span> a <span class="ansi-yellow-intense-fg ansi-bold">=</span> np<span class="ansi-yellow-intense-fg ansi-bold">.</span>random<span class="ansi-yellow-intense-fg ansi-bold">.</span>randn<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">2</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-cyan-intense-fg ansi-bold">3</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-fg">      2</span> b <span class="ansi-yellow-intense-fg ansi-bold">=</span> np<span class="ansi-yellow-intense-fg ansi-bold">.</span>random<span class="ansi-yellow-intense-fg ansi-bold">.</span>randn<span class="ansi-yellow-intense-fg ansi-bold">(</span><span class="ansi-cyan-intense-fg ansi-bold">3</span><span class="ansi-yellow-intense-fg ansi-bold">,</span> <span class="ansi-cyan-intense-fg ansi-bold">2</span><span class="ansi-yellow-intense-fg ansi-bold">)</span>
-<span class="ansi-green-intense-fg ansi-bold">----&gt; 3</span><span class="ansi-yellow-intense-fg ansi-bold"> </span>a <span class="ansi-yellow-intense-fg ansi-bold">*</span> b
-
-<span class="ansi-red-intense-fg ansi-bold">ValueError</span>: operands could not be broadcast together with shapes (2,3) (3,2) </pre>
-</div>
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing code_cell rendered">
-<div class="input">
-<div class="prompt input_prompt">In&nbsp;[78]:</div>
-<div class="inner_cell">
-    <div class="input_area">
-<div class=" highlight hl-ipython3"><pre><span></span><span class="n">a</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">)</span>
-<span class="n">b</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="mi">3</span><span class="p">,</span> <span class="mi">2</span><span class="p">)</span>
-<span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">a</span><span class="p">,</span> <span class="n">b</span><span class="p">)</span>
-</pre></div>
-
-</div>
-</div>
-</div>
-
-<div class="output_wrapper">
-<div class="output">
-
-
-<div class="output_area">
-<div class="prompt output_prompt">Out[78]:</div>
-
-
-
-<div class="output_text output_subarea output_execute_result">
-<pre>array([[ 1.69071795, -0.13511543],
-       [ 4.86600855, -0.01294056]])</pre>
-</div>
-
-</div>
-
-</div>
-</div>
-
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[2-7].-Quick-tour-of-Jupyter/iPython-Notebooks">[2-7]. Quick tour of Jupyter/iPython Notebooks<a class="anchor-link" href="#[2-7].-Quick-tour-of-Jupyter/iPython-Notebooks">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>Programming Assignment가 Jupyter notebook 형태로 제공될텐데, 이에 대한 사용법을 설명함.</p>
 <ul>
-<li>'### START CODE HERE ###'과 '### END CODE HERE ###' 사이에 과제 코드 작성</li>
-<li>코드 셀 실행은 shift + enter</li>
-<li>작성이 끝나면 우측 상단에 'Submit Assigment' 버튼으로 제출</li>
+<li>Algorithm for Step 2
+$$
+\begin{align}
+&m = \text{number of samples} \\
+&n_h = \text{number of nodes in the hidden layer} \\
+&n_y = \text{number of nodes in the output layer} \\
+&\textbf{for} ~ i=1 ~ \text{to} ~ m ~ \textbf{do} \\
+&\qquad z^{[1](i)} = W^{[1]} \cdot x^{(i)} + b^{[1]} \\
+&\qquad a^{[1](i)} = \sigma(z^{[1](i)})
+&\\
+&\qquad z^{[2](i)} = W^{[2]T}_j \cdot z^{[1](i)} + b^{[2]} \\
+&\qquad a^{[2](i)} = \sigma(z^{[2](i)})
+\end{align}
+$$</li>
 </ul>
 
 </div>
@@ -14003,16 +12319,21 @@ c transposed: [[ 1.83831117 -2.27910181  0.49413789 -0.75069614  0.83271093]]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<h3 id="[2-8].-Explanation-of-logistic-regression-cost-function-(optional)">[2-8]. Explanation of logistic regression cost function (optional)<a class="anchor-link" href="#[2-8].-Explanation-of-logistic-regression-cost-function-(optional)">&#182;</a></h3>
-</div>
-</div>
-</div>
-<div class="cell border-box-sizing text_cell rendered">
-<div class="prompt input_prompt">
-</div>
-<div class="inner_cell">
-<div class="text_cell_render border-box-sizing rendered_html">
-<p>일반적인 회귀모형에서는 예측값과 실제값의 차이에 대한 제곱합을 비용함수로 사용하는데($J(b, w) = - \frac{1}{m} \sum_i^m (y^{(i)} - \hat{y}^{(i)})^2$), 앞서 설명한 로지스틱 회귀모형에서는 다른 형태의 비용함수($J(w, b) = - \frac{1}{m} \sum_{i=1}^m \left[ y^{(i)} \log \hat{y}^{(i)} + (1-y^{(i)}) \log(1-\hat{y}^{(i)})\right]$)를 사용 했었다. 왜 이렇게 하는 것인지 알아보자.</p>
+<ul>
+<li>Algorithm for Step 3
+$$
+\begin{align}
+&m = \text{number of samples} \\
+&n_h = \text{number of nodes in the hidden layer} \\
+&n_y = \text{number of nodes in the output layer} \\
+& Z^{[1]} = W^{[1]} \cdot X + b^{[1]} \\
+&A^{[1]} = \sigma(Z^{[1]})
+&\\
+&Z^{[2]} = W^{[2]} \cdot A^{[1]} + b^{[2]} \\
+&A^{[2]} = \sigma(Z^{[2]})
+\end{align}
+$$</li>
+</ul>
 
 </div>
 </div>
@@ -14022,16 +12343,625 @@ c transposed: [[ 1.83831117 -2.27910181  0.49413789 -0.75069614  0.83271093]]
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
-<p>로지스틱 회귀모형에 의하면 어떤 데이터 1건 $\mathbf{x}$가 가 주어졌을 때, 실제값이 1일 확률은 $p(y=1|\mathbf{x}) = \hat{y}$이고, 실제값이 0일 확률은 $p(y=0|\mathbf{x}) = 1- \hat{y}$이다. 이 두 표현을 결합하여 실제값이 1이든지 0이든지 그것을 맞출 확률은 $p(y|\mathbf{x}) = \hat{y}^y (1-\hat{y})^{1-y}$이다. 전체 $m$건의 데이터가 주어졌을 때 전체 데이터의 실제값을 맞출 확률은 각 건을 맞출 확률을 모두 곱한(결합확률, iid를 가정함) $\prod_i^m p(y^{(i)}|\mathbf{x}^{(i)})^{(i)}$이 된다.(이것을 우도(likelihood) 라 한다.)</p>
-<p>즉 $\prod_i^m p(y^{(i)}|\mathbf{x}^{(i)})^{(i)}$값이 크다면 좋은 모형이라 할 수 있고,  이 값이 가장 커지도록 하는 적절한 $(b, \mathbf{w})$를 찾는 것이 모형 학습 과정이라 할 수 있다. (물론 과적합을 피하기도 해야 한다.)</p>
-<p>그런데 log 함수의 단조증가 특성 때문에 $\prod_i^m p(y^{(i)}|\mathbf{x}^{(i)})^{(i)}$를 최대화 하는 $(b, \mathbf{w})$과 
-log를 취하고 $m$으로 나눈 $\frac{1}{m}\sum_i^m \log p(y^{(i)}|\mathbf{x}^{(i)})^{(i)}$를 최대화 하는 $(b, \mathbf{w})$이 같은데, under-flow(0과 1 사이의 값을 여러번 곱할 경우 그 값이 너무 0에 가까워져서 컴퓨터가 소수점에서 먼 값들을 잃어 버리는 현상) 문제와 계산의 편의성을 위해 log를 취한 값을 최대화하는 $(b, \mathbf{w})$를 찾는다. (이런 방법을 최대 우도 추정법(maximum likelihood estimation)이라 한다. $m$으로 나누는 것은 데이터 건수가 다를 경우에도 비용함수값에 대한 비교를 용이하기 하기 위한 단위 맞춤이다.)</p>
+<p><img src="./images/C1W3L03_02.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L03_03.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L03_04.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="[1-5].-Explanation-for-Vectorized-Implementation">[1-5]. Explanation for Vectorized Implementation<a class="anchor-link" href="#[1-5].-Explanation-for-Vectorized-Implementation">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>앞서 설명한 내용이므로 설명 생략.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="[1-6].-Activation-functions">[1-6]. Activation functions<a class="anchor-link" href="#[1-6].-Activation-functions">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>다양한 종류의 활성함수(activation function)가 있다.</p>
+<ul>
+<li><p><strong>sigmoid</strong> : 0과 1 사이의 값을 출력하므로 이를 확률 값으로 사용하는 이항분류 문제의 출력 레이어에 사용된다. 
+$$g(z) = 1/(1+e^{-z})$$</p>
+</li>
+<li><p><strong>tanh</strong> : sigmoid를 아래로 이동하고 위아래로 늘린 버전으로서 거의 항상 sigmiod보다 성능이 좋다. tanh는 데이터값을 0을 중심으로 모이게 하는 효과(centering)가 있다. 이 때문에 sigmoid보다 학습이 용이하다.
+$$g(z) = \tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$$</p>
+</li>
+</ul>
+<p>각 레이어마다 다른 활성함수(activation function)를 사용할수있으므로, 각 레이어의 활성를 표현하기위해, $l$번째 레이어의 활성함수를 $g^{[l]}$로 표기할 것이다.</p>
+<p>sigmoid, tanh 모두가 갖는 문제점은 z가 매우커지거나 매우작아지면 gradient값이 너무작아지는 점이다.(0에가까워짐) 이는 gradient descent의 수렴속도를 매우 느리게 만든다. Relu(rectified linear unit)를 사용하면 이런 문제를 극복할 수 있다.</p>
+<ul>
+<li><p><strong>ReLU</strong> : Rectified Linear Unit, 함수 자체는 z가0인 지점에서 미분이 안되는데 z가 0 이면 gradient를 1혹은 0으로 정하고 사용한다. ReLU도 단점으로 z가 0보다 작을 경우 derivative가 0이라는 특정이 있는데 물론 이점이 학습에 큰 영향을 주지는 않는다. 0이하에서0이 아닌 미분값을 원한다면 Leaky ReLU를 사용할수도 있다. 
+$$g(z) = \max(0, z)$$</p>
+</li>
+<li><p><strong>Leaky ReLU</strong>
+$$g(z) = \max(0.01z, z)$$</p>
+</li>
+</ul>
+<p>신경망을 구성할 때 어떤 activation func 를 사용할지, 히든 레이어는 몇개로 할지 유닛은 몇개로할지등 여러가지 선택 사항이 있다. 사실 그 어느것에도 장답은 없고, 여러기지를 시도해보고 내 데이터에 잘 맞는것을 사용하면 된다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L04_01.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L04_02.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="[1-7].-Why-do-you-need-non-linear-activation-function?">[1-7]. Why do you need non-linear activation function?<a class="anchor-link" href="#[1-7].-Why-do-you-need-non-linear-activation-function?">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>그런데 왜 activation function으로 sigmoid, tanh, relu와 같은 비선형(non-linear)함수를 사용하는 걸까? 그냥 $f(x) = x$와 같은 선형함수를 사용하면 안되나?</p>
+<p>예를들어 아래 그림과 같은 네트워크가 있고
+$g^{[1]}()$을 선형함수인 항등 함수(identity function) $g(z) = z$로 바꾼다고 해 보자. 
+이때 $a^{[2]}$를 계산해보면 $a^{[2]} = (W^{[2]} W^{[1]}) x + (W^{[2]}b^{[1]} + b^{[2]})$ 이고, 이는 결국 $W'x + b'$라 할 수 있다. 이는 결국 입력$x$에 대한 선형함수 이므로 데이터가 갖는 (복잡한) 패턴을 찾아낼 수 없게 된다.</p>
+<p>물론 선형함수가 사용되는 경우가 가끔 있는데 타겟값이 실수인 회귀 문제의 경우 출력레이어에 선형함수를 사용하기도 한다. (예를들어 주택값을 예측하는 문제의 경우 타겟값의 범위가 0에서부터 상당히 큰 수 까지이므로). 하지만 이런 경우에도 히든 레이어의 엑티베이션 함수는 비선형함수를 사용한다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L05_01.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="[1-8].-Derivatives-of-activation-functions">[1-8]. Derivatives of activation functions<a class="anchor-link" href="#[1-8].-Derivatives-of-activation-functions">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>(물론 TensorFlow나 Keras 등을 사용하면 직접 계산할 일은 없겠으나...) 역전파를 계산할 때 활성함수(activation function)의 1차 도함수(derivative, gradient, slop, 기울기, 1차 미분 등으로 표현됨)를 계산해야만 한다. 물론 sigmoid, tanh, ReLU 등과 같이 1차 미분이 잘 알려져 있고 그 형태가 간단한 활성함수들을 주로 사용하게 된다. 이번 비디오에서는 주로 사용하게될 활성함수의 1차 미분이 어떤 형태인지 알아본다.</p>
+<p>우선 이항 분류 문제의 출력 레이어에 주로 사용되는 활성함수인 시그모이드 함수(sigmoid function)의 1차 미분은 아래와 같다.
+$$
+\begin{align}
+\frac{d}{dz}g(z) &= g(z)(1-g(z))\\
+\end{align}
+$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L06_01.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>tanh 함수는 아래와 같으며 
+$$g(z) = \tanh(z) = \frac{e^z - e^{-z}}{e^z + e^{-z}}$$
+$z$에 대한 1차 도함수는 아래와 같다.
+$$g'(z) = \frac{d}{dz}g(z) = 1 - g(z)^2$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L06_02.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>ReLU 함수는 그 생김새 처럼 미분항 또한 단순하다. 사실 $z$가 0일 때 미분이 안되지만 그냥 $g'(0)$을 1 혹은 0이라 하고 정하고 사용하며 이렇게 하더라도 모형 학습에 아무런 문제가 되지 않는다.
 $$\begin{align}
-J(b, \mathbf{w}) & =  \frac{1}{m} \log \prod_i^m p(y^{(i)}|\mathbf{x}^{(i)})^{(i)} \\
-& = \frac{1}{m}\sum_i^m \log p(y^{(i)}|\mathbf{x}^{(i)})^{(i)} \\
-& = \frac{1}{m} \sum_i^m \log \left( \hat{y^{(i)}}^{y^{(i)}} (1-\hat{y^{(i)}})^{1-y^{^{(i)}}}  \right) \\
-& = \frac{1}{m} \sum_i^m y^{(i)} \log \hat{y^{(i)}} + (1-y^{(i)}) \log(1-\hat{y^{(i)}})
-\end{align}$$
+&g(z) = \max(0, z) \\
+&g'(z) = 
+\begin{cases}
+0 &\text{if}~ z < 0\\
+1 &\text{if}~ z \geq 0\\
+\end{cases}
+\end{align}$$</p>
+<p>Leaky ReLU 함수와 1차 도함수는 아래와 같다. ReLU와 마찬가지로 $z$가 0일 때 미분값을 1이나 0.01로 정하고 사용한다.
+$$\begin{align}
+&g(z) = \max(0.01z, z) \\
+&g'(z) = 
+\begin{cases}
+0.01 & \text{if}~ z < 0\\
+1    & \text{if}~ z \geq 0\\
+\end{cases}
+\end{align}$$</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L06_03.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="[1-9].-Gradient-descent-for-Neural-Networks">[1-9]. Gradient descent for Neural Networks<a class="anchor-link" href="#[1-9].-Gradient-descent-for-Neural-Networks">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>히든레이어가 하나 있는 신경망을 예로들어 gradient descent를 어떻게 구현하는지 알아자.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="[1-10].-Backpropagation-intuition">[1-10]. Backpropagation intuition<a class="anchor-link" href="#[1-10].-Backpropagation-intuition">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>로지스틱 회귀모형에서는 아래의 계산 그래프(computation graph)와 같이 입력 데이터 $x$가 주어졌을 때<br>
+어떤 미지의 파라미터 $w$와 $b$를 상정하고 아래 계산 과정을 통해 예측값과 실제값 사이의 오차(log-loss)를 구하고</p>
+<ul>
+<li>$x$들의 가중합 $z=w^T x + b$를 계산</li>
+<li>(앞서 계산한 $z$를 이용하여) 예측값 $\hat{y} = a = \sigma(z) = \frac{1}{1 + e^{-z}}$ 를 계산</li>
+<li>앞서 구한 예측값 $a$와 실제값 $y$와의 오차를 계량하는 log-loss 값 $\mathcal{L}(a, y)$를 계산       </li>
+</ul>
+<p>아래 과정과 같이 각 파라미터 $w \in \{w_1, w_2, \cdots\}$, $b$가 오차에 주는 영향을 계산하고</p>
+<ul>
+<li>$a$가 $\mathcal{L}(a, y)$에 주는 영향 $\text{da} = \frac{\partial \mathcal{L}}{\partial a} = -\frac{y}{a} + \frac{1-y}{1-a}$을 계산</li>
+<li>$z$가 $\mathcal{L}(a, y)$에 주는 영향 $\text{dz} = \frac{\partial \mathcal{L}}{\partial z} = \frac{\partial a}{\partial z} \frac{\partial \mathcal{L}}{\partial a} = \frac{\partial a}{\partial z} \text{da} = a-y$을 계산</li>
+<li>$w$가 $\mathcal{L}(a, y)$에 주는 영향 $\text{dw} = \frac{\partial \mathcal{L}}{\partial w} = \frac{\partial z}{\partial w} \frac{\partial a}{\partial z} \frac{\partial \mathcal{L}}{\partial a} = \frac{\partial z}{\partial w} \text{dz} = w\cdot da$을 계산</li>
+<li>$b$가 $\mathcal{L}(a, y)$에 주는 영향 $\text{db} = \frac{\partial \mathcal{L}}{\partial b} = \frac{\partial z}{\partial b} \frac{\partial a}{\partial z} \frac{\partial \mathcal{L}}{\partial a} = 1 \cdot \text{dz}$</li>
+</ul>
+<p>아래와 같이 영향도에 따라 각 파라미터를 수정하게 된다.($\alpha$는 learning rate)</p>
+<ul>
+<li>$w^{new} = w^{old} - \alpha \cdot dw$</li>
+<li>$b^{new} = b^{old} - \alpha \cdot db$</li>
+</ul>
+<p>사실 이 과정은 아래 슬라이드의 우측 상단의 그림과 같이, 히든 레이어 없이 노드 하나짜리 출력 레이어(output layer)만 존재하는 신경망에서의 순전파와 역전파 계산과 같다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L08_01.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>위 논의를 조금 확장하여 히든 레이어가 하나 있는 신경망에서의 순전파와 역전파를 생각해보자. 이 경우 앞서 입력값 $x$의 가중합이 바로 출력 레이어인 sigmoid 함수의 입력값으로 들어가 출력값이 나오는 것과 달리, 입력값이 히든 레이어의 활성함수(activation function)을 지나 그 출력이 sigmoid 함수의 입력값으로 사용된다.</p>
+<p>각 과정을 따라가보면</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>아래 F1부터 F5번까지 식은 순전파(forward-propagation) 과정이며, B1번부터 B4-2까지 식은 역전파(backward-propagation) 과정이다. (아래 식에서 연산자 $\cdot$은 행렬곱(matrix multiplication)이며, 연산자 $*$는 shape이 같은 두 행렬의 같은 위치의 원소들을 각각 곱하는 것(element wise multiplication)을 의미)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$
+\begin{align}
+& & \text{db1} = \frac{\partial \mathcal{L}}{\partial db^{[1]}} = \frac{\partial z^{[1]}}{b^{[1]}} \left( \frac{\partial a^{[1]}}{\partial z^{[1]}} \frac{\partial z^{[2]}}{\partial a^{[1]}} \frac{\partial a^{[2]}}{\partial z^{[2]}} \frac{\partial \mathcal{L}}{\partial a^{[2]}} \right) = \text{dz1} \cdot 1 \qquad (B4-2) \\
+& & \text{dW1} = \frac{\partial \mathcal{L}}{\partial dW^{[1]}} = \frac{\partial z^{[1]}}{W^{[1]}} \left( \frac{\partial a^{[1]}}{\partial z^{[1]}} \frac{\partial z^{[2]}}{\partial a^{[1]}} \frac{\partial a^{[2]}}{\partial z^{[2]}} \frac{\partial \mathcal{L}}{\partial a^{[2]}} \right) = \text{dz1} \cdot x^T \qquad (B4-1) \\
+&(F1) \qquad z^{[1]}=W^{[1]}x + b^{[1]}       & \text{dz1} = \frac{\partial \mathcal{L}}{\partial z^{[1]}} = \frac{\partial a^{[1]}}{\partial z^{[1]}} \left( \frac{\partial z^{[2]}}{\partial a^{[1]}} \frac{\partial a^{[2]}}{\partial z^{[2]}} \frac{\partial \mathcal{L}}{\partial a^{[2]}} \right) =  \frac{\partial g^{[1]}}{\partial z^{[1]}} * \text{da1} \qquad (B4) \\
+&(F2) \qquad a^{[1]} = g^{[1]}(z^{[1]})        & \text{da1} = \frac{\partial \mathcal{L}}{\partial a^{[1]}} = \frac{\partial z^{[2]}}{\partial a^{[1]}} \left( \frac{\partial a^{[2]}}{\partial z^{[2]}} \frac{\partial \mathcal{L}}{\partial a^{[2]}} \right) = w^{[2]T} \cdot \text{dz2} \qquad (B3) \\
+& & \text{db2} = \frac{\partial \mathcal{L}}{\partial db^{[2]}} = \frac{\partial z^{[1]}}{b^{[2]}} \left( \frac{\partial a^{[2]}}{\partial z^{[2]}} \frac{\partial \mathcal{L}}{\partial a^{[2]}} \right) = \text{dz2} \cdot 1 \qquad (B2-2) \\
+& & \text{dW2} = \frac{\partial \mathcal{L}}{\partial dW^{[2]}} = \frac{\partial z^{[1]}}{W^{[2]}} \left( \frac{\partial a^{[2]}}{\partial z^{[2]}} \frac{\partial \mathcal{L}}{\partial a^{[2]}} \right) = \text{dz2} \cdot a^{[1]^T} \qquad (B2-1) \\
+&(F3) \qquad z^{[2]}=W^{[2]}a^{[1]} + b^{[2]} & \text{dz2} = \frac{\partial \mathcal{L}}{\partial z^{[2]}} = \frac{\partial a^{[2]}}{\partial z^{[2]}} \frac{\partial \mathcal{L}}{\partial a^{[2]}} = a^{[2]} * (1-a^{[2]}) * \text{da2} = a^{[2]}-y \qquad (B2) \\
+&(F4) \qquad a^{[2]} = \sigma(z^{[2]})        & \text{da2} = \frac{\partial \mathcal{L}}{\partial a^{[2]}} = \left(-\frac{y}{a^{[2]}} + \frac{1-y}{1-a^{[2]}}\right) \qquad (B1) \\
+&(F5) \qquad \mathcal{L}(a^{[2]}, y)          & 
+\end{align}
+$$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[59]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Step 2</span>
+<span class="c1"># vectorized computation for each node</span>
+<span class="c1"># but still using for-loop for each sample</span>
+
+<span class="c1"># model parameters</span>
+<span class="n">n_x</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># number of features</span>
+<span class="n">n_h</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># number of units in the hidden layer</span>
+<span class="n">n_y</span> <span class="o">=</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># size of output layer (= 1)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># number of samples</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># learning rate</span>
+<span class="n">num_epoch</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># weights</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">W1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_h</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">W2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_h</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># Training - looping for epoch and for all traning data</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epoch</span><span class="p">):</span>  <span class="c1"># for each epoch</span>
+    
+    <span class="n">dW1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_h</span><span class="p">,</span> <span class="n">n_x</span><span class="p">))</span>
+    <span class="n">db1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">dW2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_h</span><span class="p">))</span>
+    <span class="n">db2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    
+    <span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">m</span><span class="p">):</span>  <span class="c1"># for each sample</span>
+        <span class="n">x_i</span> <span class="o">=</span> <span class="n">X_train</span><span class="p">[:,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># xi.shape = (n_x, 1) = (2, 1)</span>
+        <span class="n">y_i</span> <span class="o">=</span> <span class="n">Y_train</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="n">i</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># y.shape = (n_y, 1) = (1, 1), actual target value</span>
+
+        <span class="c1"># forward-propagation</span>
+        <span class="n">z1_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W1</span><span class="p">,</span> <span class="n">x_i</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span>  <span class="c1"># (F1) z1.shape = (n_h, 1) = (4, 1)</span>
+        <span class="n">a1_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">z1_i</span><span class="p">)</span>  <span class="c1"># (F2) a1.shape = (n_h, 1) = (4, 1)</span>
+        <span class="n">z2_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W2</span><span class="p">,</span> <span class="n">a1_i</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span>  <span class="c1"># (F3) shape=(n_y, 1) = (1, 1)</span>
+        <span class="n">a2_i</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">z2_i</span><span class="p">)</span>  <span class="c1"># (F4) shape = (n_y, 1) = (1, 1)</span>
+        <span class="n">loss</span> <span class="o">=</span> <span class="o">-</span><span class="n">y_i</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="n">a2_i</span><span class="p">)</span> <span class="o">-</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_i</span><span class="p">)</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">log</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a2_i</span><span class="p">)</span>  <span class="c1"># (F5) loss.shape = (n_y, 1) = (1, 1)</span>
+
+        <span class="c1"># backward-propagation</span>
+        <span class="n">da2_i</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">y_i</span> <span class="o">/</span> <span class="n">a2_i</span> <span class="o">+</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">y_i</span><span class="p">)</span> <span class="o">/</span> <span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a2_i</span><span class="p">))</span>  <span class="c1"># (B1) da2.shape = (n_y by 1) = (1, 1)</span>
+        <span class="c1"># dz2_i = np.multiply(a2_i, 1 - a2_i, da2_i)  # (B2) dz2.shape = (n_y, 1) = (1, 1), same calculation as (a2_i - y_i)</span>
+        <span class="n">dz2_i</span> <span class="o">=</span> <span class="n">a2_i</span> <span class="o">-</span> <span class="n">y_i</span>
+        
+        <span class="n">dW2_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dz2_i</span><span class="p">,</span> <span class="n">a1_i</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>  <span class="c1"># (B2-1) dW2.shape = (n_y, n_h) = (1, 4), same shape as W2</span>
+        <span class="n">db2_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dz2_i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># (B2-2) db2.shape = (n_y, 1) = (1, 1), same shape as b2</span>
+        <span class="n">dW2</span> <span class="o">+=</span> <span class="n">dW2_i</span>
+        <span class="n">db2</span> <span class="o">+=</span> <span class="n">db2_i</span>
+        
+        <span class="n">da1_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W2</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dz2_i</span><span class="p">)</span>  <span class="c1"># (B3) da1.shape=(n_h, 1) = (4, 1), W2.shape = (n_y, n_h) = (1, 4) </span>
+        <span class="n">dz1_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">a1_i</span> <span class="o">**</span> <span class="mi">2</span><span class="p">,</span> <span class="n">da1_i</span><span class="p">)</span>  <span class="c1"># (B4) dz1.shape = (n_h, 1) = (4, 1)</span>
+
+        <span class="n">dW1_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dz1_i</span><span class="p">,</span> <span class="n">x_i</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>  <span class="c1"># (B4-1) dW1.shape = (n_h, n_x) = (4, 2), same shape as W1</span>
+        <span class="n">db1_i</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dz1_i</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>  <span class="c1"># (B4-2) db1.shape = (n_h, 1) = (4, 1), same shape as b1</span>
+        <span class="n">dW1</span> <span class="o">+=</span> <span class="n">dW1_i</span>
+        <span class="n">db1</span> <span class="o">+=</span> <span class="n">db1_i</span>
+        
+        <span class="k">if</span> <span class="n">i</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">and</span> <span class="n">e</span> <span class="o">==</span> <span class="mi">0</span><span class="p">:</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(F1). z1.shape:&#39;</span><span class="p">,</span> <span class="n">z1_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(F2). a1.shape:&#39;</span><span class="p">,</span> <span class="n">a1_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(F3). z2.shape:&#39;</span><span class="p">,</span> <span class="n">z2_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(F4). a2.shape:&#39;</span><span class="p">,</span> <span class="n">a2_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(F5). loss.shape:&#39;</span><span class="p">,</span> <span class="n">loss</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(B1). da2.shape:&#39;</span><span class="p">,</span> <span class="n">da2_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(B2). dz2.shape:&#39;</span><span class="p">,</span> <span class="n">dz2_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(B2-1). dW2.shape:&#39;</span><span class="p">,</span> <span class="n">dW2_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(B2-2). db2.shape:&#39;</span><span class="p">,</span> <span class="n">db2_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(B3). da1.shape:&#39;</span><span class="p">,</span> <span class="n">da1_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(B4). dz1.shape:&#39;</span><span class="p">,</span> <span class="n">dz1_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(B4-1). dW1.shape:&#39;</span><span class="p">,</span> <span class="n">dW1_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            <span class="nb">print</span><span class="p">(</span><span class="s1">&#39;(B4-2). db1.shape:&#39;</span><span class="p">,</span> <span class="n">db1_i</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+            
+    <span class="c1"># updating weights after each epoch</span>
+    <span class="n">W1</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">dW1</span><span class="o">/</span><span class="n">m</span>
+    <span class="n">b1</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">db1</span><span class="o">/</span><span class="n">m</span>
+    <span class="n">W2</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">dW2</span><span class="o">/</span><span class="n">m</span>
+    <span class="n">b2</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">db2</span><span class="o">/</span><span class="n">m</span>
+    
+<span class="nb">print</span><span class="p">(</span><span class="n">W1</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">b1</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">W2</span><span class="o">.</span><span class="n">shape</span><span class="p">,</span> <span class="n">b2</span><span class="o">.</span><span class="n">shape</span><span class="p">)</span>
+
+<span class="c1"># prediction</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W1</span><span class="p">,</span> <span class="n">X_test</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span><span class="p">))</span> <span class="o">+</span> <span class="n">b2</span><span class="p">)</span>
+<span class="n">losses</span> <span class="o">=</span> <span class="n">get_log_losses</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average loss for the test set:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">losses</span><span class="p">)))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>(F1). z1.shape: (4, 1)
+(F2). a1.shape: (4, 1)
+(F3). z2.shape: (1, 1)
+(F4). a2.shape: (1, 1)
+(F5). loss.shape: (1, 1)
+(B1). da2.shape: (1, 1)
+(B2). dz2.shape: (1, 1)
+(B2-1). dW2.shape: (1, 4)
+(B2-2). db2.shape: (1, 1)
+(B3). da1.shape: (4, 1)
+(B4). dz1.shape: (4, 1)
+(B4-1). dW1.shape: (4, 2)
+(B4-2). db1.shape: (4, 1)
+(4, 2) (4, 1) (1, 4) (1, 1)
+Average loss for the test set:0.6710470655304303
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L08_02.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L08_03.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing code_cell rendered">
+<div class="input">
+<div class="prompt input_prompt">In&nbsp;[64]:</div>
+<div class="inner_cell">
+    <div class="input_area">
+<div class=" highlight hl-ipython3"><pre><span></span><span class="c1"># Step 3</span>
+<span class="c1"># fully vectorized</span>
+
+<span class="c1"># model parameters</span>
+<span class="n">n_x</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># number of features</span>
+<span class="n">n_h</span> <span class="o">=</span> <span class="mi">4</span>  <span class="c1"># number of units in the hidden layer</span>
+<span class="n">n_y</span> <span class="o">=</span> <span class="n">Y_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>  <span class="c1"># size of output layer (= 1)</span>
+<span class="n">m</span> <span class="o">=</span> <span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span>  <span class="c1"># number of samples</span>
+<span class="n">alpha</span> <span class="o">=</span> <span class="mf">0.01</span>  <span class="c1"># learning rate</span>
+<span class="n">num_epoch</span> <span class="o">=</span> <span class="mi">100</span>
+
+<span class="c1"># weights</span>
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">0</span><span class="p">)</span>
+<span class="n">W1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_h</span><span class="p">,</span> <span class="n">n_x</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
+<span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+<span class="n">W2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">(</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_h</span><span class="p">)</span> <span class="o">*</span> <span class="mf">0.01</span>
+<span class="n">b2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+
+<span class="n">tic</span> <span class="o">=</span> <span class="n">time</span><span class="o">.</span><span class="n">time</span><span class="p">()</span>
+
+<span class="c1"># Training - looping for epoch and for all traning data</span>
+<span class="k">for</span> <span class="n">e</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">num_epoch</span><span class="p">):</span>  <span class="c1"># for each epoch</span>
+    
+    <span class="n">dW1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_h</span><span class="p">,</span> <span class="n">n_x</span><span class="p">))</span>
+    <span class="n">db1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_h</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    <span class="n">dW2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">n_y</span><span class="p">,</span> <span class="n">n_h</span><span class="p">))</span>
+    <span class="n">db2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">))</span>
+    
+    <span class="c1"># forward-propagation</span>
+    <span class="n">Z1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W1</span><span class="p">,</span> <span class="n">X_train</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span>  <span class="c1"># (n_h, n_x) dot (n_x, m) + (n_h, 1)</span>
+    <span class="n">A1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">Z1</span><span class="p">)</span>  <span class="c1"># (n_h, m)</span>
+    <span class="n">Z2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W2</span><span class="p">,</span> <span class="n">A1</span><span class="p">)</span> <span class="o">+</span> <span class="n">b2</span>  <span class="c1"># (n_y, n_h) dot (n_h, m) + (n_y, 1)</span>
+    <span class="n">A2</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">Z2</span><span class="p">)</span>  <span class="c1"># (n_y, m)</span>
+    
+    <span class="c1"># backward-propagation</span>
+    <span class="n">dZ2</span> <span class="o">=</span> <span class="n">A2</span> <span class="o">-</span> <span class="n">Y_train</span>  <span class="c1"># (n_y, m)</span>
+    <span class="n">dW2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dZ2</span><span class="p">,</span> <span class="n">A1</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>  <span class="c1"># (n_y, m) dot (m, n_h) and averaging -&gt; (n_y, n_h)</span>
+    <span class="n">db2</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dZ2</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># sum rows of (n_y, m) and averaging -&gt; (n_y, 1)</span>
+    <span class="n">dZ1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">multiply</span><span class="p">(</span><span class="mi">1</span> <span class="o">-</span> <span class="n">A1</span> <span class="o">**</span><span class="mi">2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W2</span><span class="o">.</span><span class="n">T</span><span class="p">,</span> <span class="n">dZ2</span><span class="p">))</span>  <span class="c1"># (n_h, m)</span>
+    <span class="n">dW1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">dZ1</span><span class="p">,</span> <span class="n">X_train</span><span class="o">.</span><span class="n">T</span><span class="p">)</span>  <span class="c1"># (n_h, m) dot (m, n_x) and averaging -&gt; (n_h, n_x)</span>
+    <span class="n">db1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">sum</span><span class="p">(</span><span class="n">dZ1</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">keepdims</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>  <span class="c1"># sum rows of (n_h, m) and averaging -&gt; (n_h, 1)</span>
+            
+    <span class="c1"># updating weights after each epoch</span>
+    <span class="n">W1</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">dW1</span><span class="o">/</span><span class="n">m</span>
+    <span class="n">b1</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">db1</span><span class="o">/</span><span class="n">m</span>
+    <span class="n">W2</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">dW2</span><span class="o">/</span><span class="n">m</span>
+    <span class="n">b2</span> <span class="o">-=</span> <span class="n">alpha</span> <span class="o">*</span> <span class="n">db2</span><span class="o">/</span><span class="n">m</span>
+    
+<span class="c1"># prediction</span>
+<span class="n">y_pred</span> <span class="o">=</span> <span class="n">sigmoid</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W2</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">tanh</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">W1</span><span class="p">,</span> <span class="n">X_test</span><span class="p">)</span> <span class="o">+</span> <span class="n">b1</span><span class="p">))</span> <span class="o">+</span> <span class="n">b2</span><span class="p">)</span>
+<span class="n">losses</span> <span class="o">=</span> <span class="n">get_log_losses</span><span class="p">(</span><span class="n">Y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="s1">&#39;Average loss for the test set:</span><span class="si">{}</span><span class="s1">&#39;</span><span class="o">.</span><span class="n">format</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">average</span><span class="p">(</span><span class="n">losses</span><span class="p">)))</span>
+</pre></div>
+
+</div>
+</div>
+</div>
+
+<div class="output_wrapper">
+<div class="output">
+
+
+<div class="output_area">
+<div class="prompt"></div>
+
+<div class="output_subarea output_stream output_stdout output_text">
+<pre>Average loss for the test set:0.6710470655304303
+</pre>
+</div>
+</div>
+
+</div>
+</div>
+
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L08_04.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<h3 id="[1-11].-Random-Initialization">[1-11]. Random Initialization<a class="anchor-link" href="#[1-11].-Random-Initialization">&#182;</a></h3>
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>경사하강법(gradient descent)과 같이 점근/반복적 방법으로 파라미터들(weights)를 구하는 방법을 사용할 때 파라미터에 대한 초기값 설정이 필요하다. 로지스틱 회귀모형의 경우 모든 파라미터 값을 0으로 초기화 해도 문제가 없지만, 신경망의 경우 파라미터 값을 0으로 초기화 할 경우 경사하강법이 잘 동작하지 않는다.</p>
+<p>아래 그림과 같이 2개의 입력 변수와 2개의 레이어(hidden &amp; output)로 구성된 네트워크에서 파라미터 $W$와 바이어스 $b$를 모두 0으로 설정하면 $a^{[1]}_1$과 $a^{[1]}_2$가 $0 + x_1 \cdot 0 + x_2 \cdot 0$로 같아진다. 또한 $dz^{[1]}_1$과 $dz^{[1]}_2$ 값도 같아진다.  역전파(backpropagation)가 진행되면 파라미터 $W$의 값이 0에서는 벗어나게 되지만 $w^{[1]}_1$과 $w^{[1]}_2$가 같은 값으로 변하게 되므로($W$행렬의 각 행이 같은 값을 갖는다.), 다시 $a^{[1]}_1$과 $a^{[1]}_2$가 같아진다. 결국 각 레이어에 뉴닛은 많을 수 있지만 모두 같은 함수계산이 된다. 이런 대칭(symmetry)문제가 있게 되면 최적화가 잘 되지 않는다. (사실 바이어스의 초기값을 0으로 하는 것은 문제를 일으키지 않는다.)</p>
+<p>이런 문제를 해결하기 위해 파라미터 $W$를 어떤 임의의 값으로 설정하게 된다. 임의초기화(random initialization)을 위한 파이썬 코드는 아래와 같다.</p>
+<div class="highlight"><pre><span></span><span class="n">W1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">randn</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">2</span><span class="p">))</span> <span class="o">*</span> <span class="mf">0.01</span>     
+<span class="n">b1</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zero</span><span class="p">((</span><span class="mi">2</span><span class="p">,</span><span class="mi">1</span><span class="p">))</span>
+</pre></div>
+<p>위 초기화 코드에서 왜 랜덤값에 0.01을 곱하는 것은 $w$ 초기값이 지나치케 커지면 $z$값도 커지게되고 (sigmoid나 tanh 의 경우 큰 입력값에 대한 gradient가 작기 때문에) 학습 속도가 느려지게 된다. 신경망의 깊이등 상황에 따라 0.01이 아니라 다른 상수값을 사용할 수도 있는데, 적절한 상수를 선택하는 방법에 대해서 추후 다루게 될 것이다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L09_01.PNG" alt="Local image"></p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p><img src="./images/C1W3L09_02.PNG" alt="Local image"></p>
+
 </div>
 </div>
 </div>
