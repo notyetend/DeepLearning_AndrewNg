@@ -12140,6 +12140,70 @@ $$\begin{align}
 </div>
 <div class="inner_cell">
 <div class="text_cell_render border-box-sizing rendered_html">
+<hr>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>참고로 $dW^{[l]}$를 $dz^{[l]} \cdot a^{T[l-1]}$와 같이 계산하는 것은 아래 행렬곱과 같이 설명될 수 있고,<br>
+($*$는 shape이 같은 행렬의 element-wize 곱)</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+$$\frac{dL}{dW} = \frac{dL}{dz} \frac{dz}{dW} = 
+\begin{pmatrix}
+z^{[l]}_1 & z^{[l]}_1 & \cdots & z^{[l]}_1 \\
+z^{[l]}_2 & z^{[l]}_2 & \cdots & z^{[l]}_2 \\
+\vdots    & \vdots    & \ddots & \vdots \\
+z^{[l]}_{n^{[l]}} & z^{[l]}_{n^{[l]}} & \cdots & z^{[l]}_{n^{[l]}} \\
+\end{pmatrix} 
+*
+\begin{pmatrix}
+a^{[l-1]}_1 & a^{[l-1]}_2 & \cdots & a^{[l-1]}_{n^{[l-1]}}\\
+a^{[l-1]}_1 & a^{[l-1]}_2 & \cdots & a^{[l-1]}_{n^{[l-1]}}\\
+\vdots    & \vdots    & \ddots & \vdots \\
+a^{[l-1]}_1 & a^{[l-1]}_2 & \cdots & a^{[l-1]}_{n^{[l-1]}}\\
+\end{pmatrix} =
+\begin{pmatrix}
+z^{[l]}_1\\
+z^{[l]}_2\\
+\vdots\\
+z^{[l]}_{n^{[l]}}\\
+\end{pmatrix} 
+\cdot
+\begin{pmatrix}
+a^{[l-1]}_1 & a^{[l-1]}_2 & \cdots & a^{[l-1]}_{n^{[l-1]}}\\
+\end{pmatrix}
+$$
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
+<p>각 샘플에 대한 for-loop를 벡터화한 경우, $dW^{[l]}$를 $\frac{1}{m} dZ^{[l]} \cdot A^{T[l-1]}$와 같이 계산하는 것은 $m$개 샘플에 대한 $\frac{dL}{dW}$를 구하고 이들의 평균값을 사용하는 것과 같다.</p>
+
+</div>
+</div>
+</div>
+<div class="cell border-box-sizing text_cell rendered">
+<div class="prompt input_prompt">
+</div>
+<div class="inner_cell">
+<div class="text_cell_render border-box-sizing rendered_html">
 <p><img src="./images/C1W4L04_01.PNG" alt="Local image"></p>
 
 </div>
