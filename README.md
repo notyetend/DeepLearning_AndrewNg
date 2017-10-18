@@ -8,6 +8,10 @@
 <a href="https://rawgit.com/notyetend/DeepLearning_AndrewNg/master/notes/Course1Week4_Deep_Neural_Networks.html" target="_blank">Week4. Deep_Neural_Networks</a>        
 
 ###### Course2. Improving Deep Neural Networks_Hyperparameter tuning, Regularization and Optimization
+<a href="https://rawgit.com/notyetend/DeepLearning_AndrewNg/master/notes/Course2Week1_Practical_aspects_of_Neural_networks.html" target="_blank">Week1. Practical aspects of Neural networks</a>        
+Week2        
+Week3         
+
 
 ###### Course3. Structuring Machine Learning Projects
 
